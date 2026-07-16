@@ -1,0 +1,8 @@
+{
+  "deepwiki_verdict": "unknown",
+  "deepwiki_source_url": "https://deepwiki.com/Zachbtc/mogcoin--005",
+  "question": "[File: src/MOG.sol] Identify any unprivileged path to Critical reward extraction or unfair reward access by an unprivileged attacker; cite exact functions, storage variables, and required transaction sequence.",
+  "reason": "Immediate DeepWiki capture failed: TimeoutException: Message: \n",
+  "report_generated": false,
+  "timestamp": "2026-07-16 10:44:24.206890"
+}
