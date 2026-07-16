@@ -1,0 +1,55 @@
+{
+  "max_repo": 10,
+  "source_repo": "incjanta/mogcoin",
+  "repo_name": "mogcoin",
+  "project_name": "Mog Coin",
+  "target_label": "Mog Coin live token at 0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+  "paid_impact_focus": "fund extraction and reward extraction",
+  "scope_files": [
+    "src/MOG.sol"
+  ],
+  "target_scopes": [
+    "Critical fund extraction or protocol value drain by an unprivileged attacker",
+    "Critical reward extraction or unfair reward access by an unprivileged attacker"
+  ],
+  "live_context_hint": "Use the ACTE block-pinned Mog Coin address, token and native balances, Uniswap V2 router/pair state, transfer-fee parameters, fee receivers, exemptions, ABI, events, and failed or missing probes.",
+  "context_interfaces": [
+    "src/MOG.sol"
+  ],
+  "protocol_focus": "Audit the deployed Ethereum fee-on-transfer token for reachable extraction through transfers, fee and burn accounting, automatic token-to-ETH swaps, liquidity addition, public recovery functions, and Uniswap V2 pair interactions.",
+  "attacker_profile": "unprivileged token holder, approved spender, trader, liquidity participant, pair-facing caller, fee-on-transfer integrator, receiver contract, or flash-liquidity user",
+  "core_invariants": [
+    "No unprivileged caller can move the contract's ETH or ERC20 balances to an attacker-controlled receiver.",
+    "Every transfer conserves sender value across recipient amount, contract fee tokens, burn allocation, and total-supply reduction.",
+    "Automatic swap and liquidity operations cannot overdraw contract tokens or ETH, misroute proceeds, or create attacker-controlled excess value.",
+    "The live Uniswap V2 pair balance and reserve state must remain economically consistent with fee-on-transfer execution and liquidity operations.",
+    "Allowance, max-transaction, max-wallet, trading, fee-exemption, and authorization branches cannot be bypassed for profitable extraction.",
+    "Owner-only configuration is not an exploit unless an unprivileged path bypasses authorization or abuses already-live configuration."
+  ],
+  "high_value_surfaces": [
+    "transfer(address,uint256) and transferFrom(address,address,uint256)",
+    "_transferFrom fee, trading-open, max-transaction, max-wallet, and swap trigger branches",
+    "takeFee burn, contract-fee accumulation, total-supply reduction, and Transfer-event accounting",
+    "swapBack token-to-ETH swap, ETH fee distribution, and addLiquidityETH execution with zero minimum outputs",
+    "manualSend() public native-balance forwarding to autoLiquidityReceiver",
+    "clearStuckToken(address,uint256) public ERC20 forwarding to autoLiquidityReceiver",
+    "showBacking(uint256), showSupply(), pair balance, DEAD balance, and ZERO balance arithmetic",
+    "approve(address,uint256), approveMax(address), and transferFrom allowance handling",
+    "live router 0x7a250d5630b4cf539739df2c5dacb4c659f2488d and pair 0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+    "owner-only setParameters, setStructure, setWallets, setSwapBackSettings, startTrading, reduceFee, maxWalletRule, removeLimits, and ownership changes"
+  ],
+  "impact_mapping": [
+    "Fund extraction requires attacker-controlled MOG, ETH, LP value, WETH, USDT, USDC, or another token gain at the contract, pair, liquidity provider, or user expense.",
+    "Reward extraction requires an unprivileged caller to receive fee or liquidity proceeds beyond a valid live entitlement.",
+    "Supply, fee, reserve, allowance, or balance corruption counts only when connected to a reachable transaction producing attacker-controlled value.",
+    "Public recovery functions count only if the attacker can redirect the configured receiver or otherwise capture the forwarded assets without privileged compromise."
+  ],
+  "known_rejection_memory": [
+    "Reject owner-only fee, wallet, trading, limit, or ownership changes without an unprivileged authorization bypass.",
+    "Reject generic fee-on-transfer incompatibility, slippage, MEV, denial of service, event mismatch, or holder loss without a concrete attacker value gain.",
+    "Reject claims that do not match the current direct deployment, verified source, captured block, live pair/router, and live balances.",
+    "Reject critical claims without a reproducible local test or pinned-fork proof plan."
+  ],
+  "generated_by": "codex-live-v2",
+  "source_commit": "6c30620064e24c3cf417e58ad6c76fff82428194"
+}
