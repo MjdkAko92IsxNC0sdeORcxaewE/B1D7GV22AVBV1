@@ -1,0 +1,8 @@
+{
+  "deepwiki_verdict": "unknown",
+  "deepwiki_source_url": "https://deepwiki.com/Zachbtc/mogcoin--005",
+  "question": "[File: src/MOG.sol] Produce likely REJECT cases for Critical fund extraction or protocol value drain by an unprivileged attacker where only owner/admin or excluded roles can trigger the behavior.",
+  "reason": "Immediate DeepWiki capture failed: TimeoutException: Message: \n",
+  "report_generated": false,
+  "timestamp": "2026-07-16 11:05:03.850249"
+}

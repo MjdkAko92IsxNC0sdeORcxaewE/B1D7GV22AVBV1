@@ -34,5 +34,11 @@
     "url": "https://deepwiki.com/Alex290eku/mogcoin--004",
     "timestamp": "2026-07-16 11:01:54.753854",
     "report_generated": false
+  },
+  {
+    "question": "[File: src/MOG.sol] Produce likely REJECT cases for Critical fund extraction or protocol value drain by an unprivileged attacker where only owner/admin or excluded roles can trigger the behavior.",
+    "url": "https://deepwiki.com/Zachbtc/mogcoin--005",
+    "timestamp": "2026-07-16 11:04:03.693563",
+    "report_generated": false
   }
 ]
