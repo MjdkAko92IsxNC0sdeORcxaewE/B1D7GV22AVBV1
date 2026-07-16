@@ -28,5 +28,11 @@
     "url": "https://deepwiki.com/Sharlottessan/mogcoin--003",
     "timestamp": "2026-07-16 10:59:45.234147",
     "report_generated": false
+  },
+  {
+    "question": "[File: src/MOG.sol] Compare live_context.json owner, pair, fee, reserve, and balance values with source code assumptions for Critical reward extraction or unfair reward access by an unprivileged attacker.",
+    "url": "https://deepwiki.com/Ginafote/mogcoin--007",
+    "timestamp": "2026-07-16 11:08:06.178171",
+    "report_generated": false
   }
 ]
