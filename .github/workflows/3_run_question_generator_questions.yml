@@ -121,6 +121,17 @@ jobs:
           sudo apt-get install xclip
           xvfb-run --auto-servernum python run_questions_generator_report.py
 
+      - name: Upload DeepWiki debug
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deepwiki-debug-${{ github.run_id }}
+          path: |
+            deepwiki_debug/**
+            scope_questions/**
+            scope_questions_pending/**
+          if-no-files-found: ignore
+
 
       - name: Commit and push changes
         if: steps.check_questions.outputs.run_workflow == 'true'
