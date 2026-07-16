@@ -1,4 +1,0 @@
-[
-  "[File: src/MOG.sol] Produce likely REJECT cases for Critical fund extraction or protocol value drain by an unprivileged attacker where only owner/admin or excluded roles can trigger the behavior.",
-  "[File: src/MOG.sol] Produce high-confidence candidates for Critical fund extraction or protocol value drain by an unprivileged attacker only if an unprivileged attacker can execute the full exploit path; include Foundry test outline."
-]
