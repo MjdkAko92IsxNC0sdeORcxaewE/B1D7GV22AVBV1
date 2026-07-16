@@ -200,6 +200,18 @@ class GetQuestions:
             clipboard_content = pyperclip.paste()
 
             all_questions = self.get_question_content(clipboard_content)
+            if not all_questions:
+                debug_dir = Path(os.environ.get("DEEPWIKI_DEBUG_DIR", "deepwiki_debug"))
+                debug_dir.mkdir(parents=True, exist_ok=True)
+                debug_file = debug_dir / f"{uuid.uuid4().hex}_empty_response.txt"
+                debug_file.write_text(
+                    "URL: " + url + "\n\n" + (clipboard_content or "<empty clipboard>"),
+                    encoding="utf-8",
+                )
+                raise RuntimeError(
+                    f"DeepWiki response produced 0 extracted questions for {url}; "
+                    f"debug saved to {debug_file}"
+                )
 
             try:
                 # Split into chunks of 25
@@ -226,7 +238,7 @@ class GetQuestions:
                 print(a)
 
         except Exception as e:
-            print(f"An error occurred: {str(e)}")
+            raise RuntimeError(f"Failed to generate question report for {url}: {e}") from e
 
     def get_question_content(self, clip_board_content: str) -> List[str]:
         """

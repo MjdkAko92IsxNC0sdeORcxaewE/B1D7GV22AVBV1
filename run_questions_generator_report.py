@@ -115,24 +115,40 @@ def main():
 
             counter = 0
             max_reports = batch_limit(500)
+            before = set(Path(os.environ.get("QUESTION_DIR", "question")).glob("*.json"))
+            failures = []
             report = GetQuestions(teardown=True)
-            for i, url in enumerate(pending_urls):
-                print(f"[{i + 1}/{total}] Generating report for: {url}")
-                report.get_questions(url)
-                counter += 1
-                if counter >= max_reports:
-                    break
+            try:
+                for i, url in enumerate(pending_urls):
+                    print(f"[{i + 1}/{total}] Generating report for: {url}")
+                    try:
+                        report.get_questions(url)
+                    except Exception as exc:
+                        failures.append((url, str(exc)))
+                        print(f"FAILED {url}: {exc}")
+                    counter += 1
+                    if counter >= max_reports:
+                        break
+            finally:
+                if getattr(report, "teardown", False):
+                    report.driver.quit()
 
-            print(f"\n=== Completed {total} reports ===")
+            after = set(Path(os.environ.get("QUESTION_DIR", "question")).glob("*.json"))
+            produced = sorted(after - before)
+            print(f"\n=== Completed {counter} report attempts; produced {len(produced)} question file(s) ===")
+            if failures:
+                print("Failures:")
+                for url, error in failures:
+                    print(f"- {url}: {error}")
+            if not produced:
+                moved = move_files_back_to_scope_questions()
+                if moved:
+                    print(f"Moved {len(moved)} pending files back to scope_questions for retry")
+                raise RuntimeError("DeepWiki report generation produced no question/*.json files")
 
     except Exception as e:
         print(f"\n!!! ERROR: {e}")
-        print("Attempting to move files back to automation directory...")
-        moved = move_files_back_to_scope_questions()
-        if moved:
-            print(f"Moved {len(moved)} files back to automation directory")
-        else:
-            print("No files were moved back")
+        raise
 
 
 
