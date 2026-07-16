@@ -1,0 +1,8 @@
+[
+  {
+    "question": "[File: src/MOG.sol] Identify any unprivileged path to Critical fund extraction or protocol value drain by an unprivileged attacker; cite exact functions, storage variables, and required transaction sequence.",
+    "url": "https://deepwiki.com/Alex290eku/mogcoin--004",
+    "timestamp": "2026-07-16 10:41:21.120220",
+    "report_generated": false
+  }
+]
