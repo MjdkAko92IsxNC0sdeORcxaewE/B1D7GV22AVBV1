@@ -10,5 +10,11 @@
     "url": "https://deepwiki.com/Ginafote/mogcoin--007",
     "timestamp": "2026-07-16 10:47:22.632451",
     "report_generated": false
+  },
+  {
+    "question": "[File: src/MOG.sol] Check whether fee exemptions, authorization mappings, limits, max wallet/max transaction, or pair/router assumptions create Critical fund extraction or protocol value drain by an unprivileged attacker.",
+    "url": "https://deepwiki.com/Alex290eku/mogcoin--009",
+    "timestamp": "2026-07-16 10:51:30.482153",
+    "report_generated": false
   }
 ]

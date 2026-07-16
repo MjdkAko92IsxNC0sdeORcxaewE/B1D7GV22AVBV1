@@ -1,0 +1,8 @@
+{
+  "deepwiki_verdict": "unknown",
+  "deepwiki_source_url": "https://deepwiki.com/Alex290eku/mogcoin--009",
+  "question": "[File: src/MOG.sol] Check whether fee exemptions, authorization mappings, limits, max wallet/max transaction, or pair/router assumptions create Critical fund extraction or protocol value drain by an unprivileged attacker.",
+  "reason": "Immediate DeepWiki capture failed: TimeoutException: Message: \n",
+  "report_generated": false,
+  "timestamp": "2026-07-16 10:52:30.720410"
+}
