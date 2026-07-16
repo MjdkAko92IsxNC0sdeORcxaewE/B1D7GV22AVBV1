@@ -1,0 +1,8 @@
+{
+  "deepwiki_verdict": "unknown",
+  "deepwiki_source_url": "https://deepwiki.com/Sharlottessan/mogcoin--003",
+  "question": "[File: src/MOG.sol] Search for rounding, balance accounting, allowance, burn/dead address, and receiver edge cases that could cause Critical reward extraction or unfair reward access by an unprivileged attacker.",
+  "reason": "Immediate DeepWiki capture failed: TimeoutException: Message: \n",
+  "report_generated": false,
+  "timestamp": "2026-07-16 11:00:45.451141"
+}

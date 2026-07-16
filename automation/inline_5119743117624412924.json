@@ -22,5 +22,11 @@
     "url": "https://deepwiki.com/Zachbtc/mogcoin--010",
     "timestamp": "2026-07-16 10:53:31.952099",
     "report_generated": false
+  },
+  {
+    "question": "[File: src/MOG.sol] Search for rounding, balance accounting, allowance, burn/dead address, and receiver edge cases that could cause Critical reward extraction or unfair reward access by an unprivileged attacker.",
+    "url": "https://deepwiki.com/Sharlottessan/mogcoin--003",
+    "timestamp": "2026-07-16 10:59:45.234147",
+    "report_generated": false
   }
 ]
