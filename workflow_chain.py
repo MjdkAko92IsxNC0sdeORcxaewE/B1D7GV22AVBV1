@@ -20,7 +20,20 @@ STAGES = {
     "1": Stage(output_globs=("scope/*.json",)),
     "2": Stage(output_globs=("scope_questions/*.json",), remaining_globs=("scope/*.json",)),
     "3": Stage(output_globs=("question/*.json",), remaining_globs=("scope_questions/*.json",)),
-    "4": Stage(output_globs=("automation/*.json",), remaining_globs=("question/*.json",)),
+    "4": Stage(
+        output_globs=(
+            "automation/*.json",
+            "needs_local_proof/*.md",
+            "needs_local_proof/*.json",
+            "deepwiki_candidates/*.md",
+            "deepwiki_candidates/*.json",
+            "deepwiki_unknown/*.md",
+            "deepwiki_unknown/*.json",
+            "rejected_by_deepwiki/*.md",
+            "rejected_by_deepwiki/*.json",
+        ),
+        remaining_globs=("question/*.json",),
+    ),
     "5": Stage(
         output_globs=(
             "needs_local_proof/*.md",

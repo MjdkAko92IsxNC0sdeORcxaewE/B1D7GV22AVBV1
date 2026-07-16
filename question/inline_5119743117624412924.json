@@ -1,0 +1,10 @@
+[
+  "[File: src/MOG.sol] Identify any unprivileged path to Critical reward extraction or unfair reward access by an unprivileged attacker; cite exact functions, storage variables, and required transaction sequence.",
+  "[File: src/MOG.sol] Analyze transfer, fee, swapBack, and liquidity logic for Critical reward extraction or unfair reward access by an unprivileged attacker; distinguish intended owner-only behavior from attacker-reachable behavior.",
+  "[File: src/MOG.sol] Check whether fee exemptions, authorization mappings, limits, max wallet/max transaction, or pair/router assumptions create Critical reward extraction or unfair reward access by an unprivileged attacker.",
+  "[File: src/MOG.sol] Review Uniswap V2 pair/router interactions, reserve assumptions, and swap thresholds for Critical reward extraction or unfair reward access by an unprivileged attacker; include concrete proof plan.",
+  "[File: src/MOG.sol] Search for rounding, balance accounting, allowance, burn/dead address, and receiver edge cases that could cause Critical reward extraction or unfair reward access by an unprivileged attacker.",
+  "[File: src/MOG.sol] Compare live_context.json owner, pair, fee, reserve, and balance values with source code assumptions for Critical reward extraction or unfair reward access by an unprivileged attacker.",
+  "[File: src/MOG.sol] Produce likely REJECT cases for Critical reward extraction or unfair reward access by an unprivileged attacker where only owner/admin or excluded roles can trigger the behavior.",
+  "[File: src/MOG.sol] Produce high-confidence candidates for Critical reward extraction or unfair reward access by an unprivileged attacker only if an unprivileged attacker can execute the full exploit path; include Foundry test outline."
+]

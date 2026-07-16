@@ -122,6 +122,9 @@ jobs:
       - name: Run Audit automation
         env:
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
+          DIRECT_DEEPWIKI_CAPTURE: "1"
+          SAVE_REJECTED_DEEPWIKI: "1"
+          DEEPWIKI_RESPONSE_TIMEOUT: "240"
 
         if: steps.check_questions.outputs.run_workflow == 'true'
         run: python run_automation.py
@@ -198,6 +201,6 @@ jobs:
         if: steps.check_questions.outputs.run_workflow == 'true' && inputs.chain_next == 'true'
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run: python workflow_chain.py advance --stage 4 --same-workflow 4_run_automation.yml --next-workflow 5_run_report.yml --smoke-limit "${{ inputs.smoke_limit }}"
+        run: python workflow_chain.py advance --stage 4 --same-workflow 4_run_automation.yml --next-workflow 6_run_validator.yml --smoke-limit "${{ inputs.smoke_limit }}"
 
 # Workflow registration refresh for migrated repository.

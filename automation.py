@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import random
@@ -68,6 +69,52 @@ class Deepwiki:
         menu_item = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_primary)))
         menu_item.click()
 
+    def _stable_id(self, value):
+        return hashlib.sha256(value.encode("utf-8", errors="replace")).hexdigest()[:16]
+
+    def _write_direct_unknown(self, question, url, reason):
+        out_dir = Path(os.environ.get("DEEPWIKI_UNKNOWN_DIR", "deepwiki_unknown"))
+        out_dir.mkdir(parents=True, exist_ok=True)
+        payload = {
+            "deepwiki_verdict": "unknown",
+            "deepwiki_source_url": url,
+            "question": question,
+            "reason": reason,
+            "report_generated": False,
+            "timestamp": str(datetime.now()),
+        }
+        target = out_dir / f"audit_unknown_{self._stable_id(url + question + reason)}.json"
+        target.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+        print(f"Saved direct DeepWiki UNKNOWN fallback to {target}: {reason}")
+        return target
+
+    def _capture_current_response(self, question, url):
+        wait = WebDriverWait(self.driver, int(os.environ.get("DEEPWIKI_RESPONSE_TIMEOUT", "240")), poll_frequency=0.5)
+        self.driver.implicitly_wait(0)
+        try:
+            def _copy_buttons_ready(driver):
+                buttons = driver.find_elements(By.CSS_SELECTOR, '[aria-label="Copy"]')
+                return buttons if buttons else False
+
+            copy_buttons = wait.until(_copy_buttons_ready)
+            last_copy_button = copy_buttons[-1]
+            wait.until(EC.element_to_be_clickable(last_copy_button)).click()
+
+            xpath = "//div[@role='menuitem' and normalize-space(text())='Copy response']"
+            el = wait.until(EC.element_to_be_clickable((By.XPATH, xpath)))
+            el.click()
+            time.sleep(1)
+            clipboard_content = pyperclip.paste()
+            saved_path = save_deepwiki_response(clipboard_content, url)
+            if saved_path:
+                print(f"Captured DeepWiki response immediately to {saved_path}")
+                return saved_path
+            return self._write_direct_unknown(question, url, "DeepWiki copied a reject/empty response during immediate capture")
+        except Exception as e:
+            return self._write_direct_unknown(question, url, f"Immediate DeepWiki capture failed: {type(e).__name__}: {e}")
+        finally:
+            self.driver.implicitly_wait(50)
+
     def ask_question(self, question_gotten):
         wait = WebDriverWait(self.driver, 1200)
 
@@ -110,8 +157,11 @@ class Deepwiki:
                 time.sleep(10)
                 current_url = self.driver.current_url
 
-                # add the current url to collections
+                # add the current url to collections for backward compatibility
                 self.save_to_file_path(question_gotten, current_url)
+
+                if os.environ.get("DIRECT_DEEPWIKI_CAPTURE", "1") != "0":
+                    self._capture_current_response(question_gotten, current_url)
                 return current_url
             except Exception as a:
                 last_error = a
