@@ -1,0 +1,8 @@
+{
+  "deepwiki_verdict": "unknown",
+  "deepwiki_source_url": "https://deepwiki.com/Alex290eku/mogcoin--004",
+  "question": "[File: src/MOG.sol] Compare live_context.json owner, pair, fee, reserve, and balance values with source code assumptions for Critical fund extraction or protocol value drain by an unprivileged attacker.",
+  "reason": "Immediate DeepWiki capture failed: TimeoutException: Message: \n",
+  "report_generated": false,
+  "timestamp": "2026-07-16 11:02:54.990567"
+}
