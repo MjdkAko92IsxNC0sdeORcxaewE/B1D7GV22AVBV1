@@ -34,7 +34,7 @@ def get_scope_questions_pending():
 
     if not json_files:
         print(f"No JSON files found in {scope_questions_pending_dir}")
-        return urls
+        return items
 
     # Process each JSON file
     for json_file in json_files:
@@ -55,7 +55,7 @@ def get_scope_questions_pending():
         except Exception as e:
             print(f"Error processing {json_file}: {e}")
 
-    return urls
+    return items
 
 
 def move_files_back_to_scope_questions():
