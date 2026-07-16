@@ -12,7 +12,7 @@
     "Critical fund extraction or protocol value drain by an unprivileged attacker",
     "Critical reward extraction or unfair reward access by an unprivileged attacker"
   ],
-  "live_context_hint": "Use the ACTE block-pinned Mog Coin address, token and native balances, Uniswap V2 router/pair state, transfer-fee parameters, fee receivers, exemptions, ABI, events, and failed or missing probes.",
+  "live_context_hint": "Load setup/live_context.json as the canonical fresh snapshot. Enforce its protocol/source/chain/target/status/age binding before generating questions. Use pair identity and reserves, known-actor authorization/exemption matrix, fee receivers and parameters, custody asset matrix, and decoded history; preserve every missing_evidence promotion rule instead of guessing unknown mapping keys or token holdings.",
   "context_interfaces": [
     "src/MOG.sol"
   ],
@@ -51,5 +51,41 @@
     "Reject critical claims without a reproducible local test or pinned-fork proof plan."
   ],
   "generated_by": "codex-live-v2",
-  "source_commit": "6c30620064e24c3cf417e58ad6c76fff82428194"
+  "source_commit": "6c30620064e24c3cf417e58ad6c76fff82428194",
+  "live_context_path": "setup/live_context.json",
+  "live_context_binding": {
+    "schema_version": "acte-live-context-v4",
+    "chain": "ethereum",
+    "chain_id": 1,
+    "target_address": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+    "pair_address": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+    "source_commit": "6c30620064e24c3cf417e58ad6c76fff82428194",
+    "required_status": "enriched",
+    "max_age_hours": 168
+  },
+  "live_context_summary": {
+    "captured_at": "2026-07-16T01:35:23Z",
+    "latest_block": 25541974,
+    "status": "enriched",
+    "owner": "0x0000000000000000000000000000000000000000",
+    "owner_renounced": true,
+    "pair": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+    "token0": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+    "token1": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "reserve0_raw": "22055200426276344053227136751532",
+    "reserve1_raw": "1212603124076658730150",
+    "lp_total_supply_raw": "26672447050147245928432308",
+    "pair_mog_balance_raw": "22055200426276344053227136751532",
+    "fee_receivers": {
+      "auto_liquidity": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+      "marketing": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+      "development": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+      "buyback": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+      "burn": "0x000000000000000000000000000000000000dead"
+    },
+    "effective_buy_fee_percent": "0",
+    "effective_sell_fee_percent": "0",
+    "effective_transfer_fee_percent": "0",
+    "bounded_missing_evidence_count": 4
+  }
 }

@@ -1,4 +1,920 @@
 {
+  "schema_version": "acte-live-context-v4",
+  "protocol": {
+    "name": "Mog Coin",
+    "source_repo": "incjanta/mogcoin",
+    "source_commit": "6c30620064e24c3cf417e58ad6c76fff82428194",
+    "paid_impact_focus": "fund extraction and reward extraction"
+  },
+  "chain": "ethereum",
+  "chain_id": 1,
+  "captured_at": "2026-07-16T01:35:23Z",
+  "latest_block": 25541974,
+  "capture_block_hash": "0x3284c2321e8f1f02aa9cd7220ca55f4e1b6bdf0447e2d5ee0fe98f5f20c6aade",
+  "rpc_endpoint_used": "https://rpc.ankr.com/eth/<redacted>",
+  "target": {
+    "address": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+    "deployment_kind": "direct",
+    "deployment_block": 17731591,
+    "deployment_transaction": "0xdb32e45e46546066b3afe1224c59dcbd37696652cabda1ed14c87be368c95958",
+    "code_size_bytes": 8321,
+    "runtime_code_hash": "0xf35998db8fc462e3d1f3029ca4271000d552bb98bbfe486bc5e50545ea327bdf",
+    "native_balance_wei": "3935208946035027",
+    "explorer_url": "https://etherscan.io/address/0xaaee1a9723aadb7afa2810263653a34ba2c21c7a"
+  },
+  "source_identity": {
+    "build": {
+      "build_passed": true,
+      "command": "forge build",
+      "project_dir": "foundry_targets/ethereum/0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+      "returncode": 0,
+      "schema_version": "acte-foundry-build-verification-v1",
+      "stderr_tail": "",
+      "stdout_tail": "Compiling 1 files with Solc 0.8.18\nSolc 0.8.18 finished in 275.55ms\nCompiler run successful!\n"
+    },
+    "compiler_version": "v0.8.18+commit.87f61d96",
+    "contract_name": "MOG",
+    "source_address": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+    "source_files": [
+      "src/MOG.sol"
+    ],
+    "verified": true
+  },
+  "storage_layout_evidence": {
+    "source": "forge inspect src/MOG.sol:MOG storage-layout at source commit",
+    "slots_read": [
+      0,
+      31
+    ],
+    "block_number": 25541974
+  },
+  "common_views": {
+    "name": "Mog Coin",
+    "symbol": "Mog",
+    "decimals": 18,
+    "owner": "0x0000000000000000000000000000000000000000",
+    "owner_renounced": true,
+    "TradingOpen": true,
+    "swapEnabled": true,
+    "swapThreshold": 2944830000000000000000000000000,
+    "_maxTxAmount": 390570159911439123354797210149241,
+    "_maxWalletToken": 390570159911439123354797210149241,
+    "totalFee": 4,
+    "totalSupply": 390570159911439123354797210149241,
+    "showSupply": 360442075042142201684597972390748,
+    "router": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d",
+    "pair": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+    "WETH": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+  },
+  "pair_identity": {
+    "address": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+    "factory": "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f",
+    "code_size_bytes": 11293,
+    "runtime_code_hash": "0x5b83bdbcc56b2e630f2807bbadd2b0c21619108066b92a58de081261089e9ce5",
+    "token0": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+    "token1": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "reserve0_raw": "22055200426276344053227136751532",
+    "reserve1_raw": "1212603124076658730150",
+    "reserve_timestamp": 1784165711,
+    "lp_total_supply_raw": "26672447050147245928432308",
+    "mog_balance_raw": "22055200426276344053227136751532",
+    "weth_balance_raw": "1212603124076658730150",
+    "reserve_balance_reconciliation": {
+      "token0_balance_raw": "22055200426276344053227136751532",
+      "token1_balance_raw": "1212603124076658730150",
+      "token0_balance_minus_reserve": "0",
+      "token1_balance_minus_reserve": "0"
+    }
+  },
+  "ownership_and_authorization": {
+    "current_owner": "0x0000000000000000000000000000000000000000",
+    "renounced": true,
+    "renounce_block": 17731932,
+    "renounce_transaction": "0xc5aad0f6c6ab72c4775b0a2a7672eefd5760d532d4949c51105f30c6176aec6e",
+    "important_note": "renounceOwnership clears _owner but does not clear the separate authorizations mapping; deployer remains authorized for transfer gating.",
+    "known_actor_matrix": [
+      {
+        "address": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+        "roles": [
+          "token_contract"
+        ],
+        "authorized": false,
+        "fee_exempt": false,
+        "max_tx_exempt": true,
+        "mog_balance_raw": "1398616187385371058320338596"
+      },
+      {
+        "address": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+        "roles": [
+          "uniswap_v2_pair"
+        ],
+        "authorized": false,
+        "fee_exempt": false,
+        "max_tx_exempt": true,
+        "mog_balance_raw": "22055200426276344053227136751532"
+      },
+      {
+        "address": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d",
+        "roles": [
+          "router"
+        ],
+        "authorized": false,
+        "fee_exempt": false,
+        "max_tx_exempt": false,
+        "mog_balance_raw": "0"
+      },
+      {
+        "address": "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f",
+        "roles": [
+          "factory"
+        ],
+        "authorized": false,
+        "fee_exempt": false,
+        "max_tx_exempt": false,
+        "mog_balance_raw": "0"
+      },
+      {
+        "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+        "roles": [
+          "weth"
+        ],
+        "authorized": false,
+        "fee_exempt": false,
+        "max_tx_exempt": false,
+        "mog_balance_raw": "0"
+      },
+      {
+        "address": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+        "roles": [
+          "auto_liquidity_receiver",
+          "buyback_receiver",
+          "deployer",
+          "development_receiver",
+          "marketing_receiver"
+        ],
+        "authorized": true,
+        "fee_exempt": true,
+        "max_tx_exempt": true,
+        "mog_balance_raw": "3027068868345969298590702649"
+      },
+      {
+        "address": "0x0000000000000000000000000000000000000000",
+        "roles": [
+          "current_owner",
+          "zero"
+        ],
+        "authorized": false,
+        "fee_exempt": false,
+        "max_tx_exempt": true,
+        "mog_balance_raw": "82859552000000000000000000"
+      },
+      {
+        "address": "0x000000000000000000000000000000000000dead",
+        "roles": [
+          "burn_receiver",
+          "dead"
+        ],
+        "authorized": false,
+        "fee_exempt": false,
+        "max_tx_exempt": false,
+        "mog_balance_raw": "30128002009744921670199237758493"
+      }
+    ]
+  },
+  "fee_receivers": {
+    "auto_liquidity": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+    "marketing": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+    "development": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+    "buyback": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+    "burn": "0x000000000000000000000000000000000000dead"
+  },
+  "tokenomics_parameters": {
+    "liquidity_fee": 2,
+    "marketing_fee": 0,
+    "development_fee": 0,
+    "buyback_fee": 0,
+    "burn_fee": 2,
+    "total_fee": 4,
+    "fee_denominator": 100,
+    "sell_percent": 0,
+    "buy_percent": 0,
+    "transfer_percent": 0,
+    "backing_ratio": 30,
+    "backing_ratio_denominator": 100,
+    "effective_buy_fee_fraction": "0/10000",
+    "effective_buy_fee_percent": "0",
+    "effective_sell_fee_fraction": "0/10000",
+    "effective_sell_fee_percent": "0",
+    "effective_transfer_fee_fraction": "0/10000",
+    "effective_transfer_fee_percent": "0"
+  },
+  "swap_and_limits": {
+    "trading_open": true,
+    "swap_enabled": true,
+    "swap_threshold_raw": "2944830000000000000000000000000",
+    "max_tx_raw": "390570159911439123354797210149241",
+    "max_wallet_raw": "390570159911439123354797210149241",
+    "limits_equal_total_supply": true,
+    "contract_mog_balance_raw": "1398616187385371058320338596",
+    "swap_threshold_reached": false
+  },
+  "balances": {
+    "custody_assets_by_actor": [
+      {
+        "address": "0x0000000000000000000000000000000000000000",
+        "roles": [
+          "current_owner",
+          "zero"
+        ],
+        "assets": {
+          "ETH": {
+            "raw": "14142794770840680061271",
+            "decimals": 18,
+            "human": "14142.794770840680061271"
+          },
+          "MOG": {
+            "raw": "82859552000000000000000000",
+            "decimals": 18,
+            "human": "82859552"
+          },
+          "WETH": {
+            "raw": "1088879090944244880639",
+            "decimals": 18,
+            "human": "1088.879090944244880639"
+          },
+          "USDT": {
+            "raw": "1033706401722",
+            "decimals": 6,
+            "human": "1033706.401722"
+          },
+          "USDC": {
+            "raw": "0",
+            "decimals": 6,
+            "human": "0"
+          }
+        }
+      },
+      {
+        "address": "0x000000000000000000000000000000000000dead",
+        "roles": [
+          "burn_receiver",
+          "dead"
+        ],
+        "assets": {
+          "ETH": {
+            "raw": "12640206109213676963739",
+            "decimals": 18,
+            "human": "12640.206109213676963739"
+          },
+          "MOG": {
+            "raw": "30128002009744921670199237758493",
+            "decimals": 18,
+            "human": "30128002009744.92167019923776"
+          },
+          "WETH": {
+            "raw": "280456150302400047409",
+            "decimals": 18,
+            "human": "280.456150302400047409"
+          },
+          "USDT": {
+            "raw": "26940393145",
+            "decimals": 6,
+            "human": "26940.393145"
+          },
+          "USDC": {
+            "raw": "53903334479",
+            "decimals": 6,
+            "human": "53903.334479"
+          }
+        }
+      },
+      {
+        "address": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+        "roles": [
+          "auto_liquidity_receiver",
+          "buyback_receiver",
+          "deployer",
+          "development_receiver",
+          "marketing_receiver"
+        ],
+        "assets": {
+          "ETH": {
+            "raw": "2021604858515887972",
+            "decimals": 18,
+            "human": "2.021604858515887972"
+          },
+          "MOG": {
+            "raw": "3027068868345969298590702649",
+            "decimals": 18,
+            "human": "3027068868.345969298590702649"
+          },
+          "WETH": {
+            "raw": "100000000000",
+            "decimals": 18,
+            "human": "0.0000001"
+          },
+          "USDT": {
+            "raw": "0",
+            "decimals": 6,
+            "human": "0"
+          },
+          "USDC": {
+            "raw": "1292785143",
+            "decimals": 6,
+            "human": "1292.785143"
+          }
+        }
+      },
+      {
+        "address": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+        "roles": [
+          "token_contract"
+        ],
+        "assets": {
+          "ETH": {
+            "raw": "3935208946035027",
+            "decimals": 18,
+            "human": "0.003935208946035027"
+          },
+          "MOG": {
+            "raw": "1398616187385371058320338596",
+            "decimals": 18,
+            "human": "1398616187.385371058320338596"
+          },
+          "WETH": {
+            "raw": "100000000000",
+            "decimals": 18,
+            "human": "0.0000001"
+          },
+          "USDT": {
+            "raw": "31502479",
+            "decimals": 6,
+            "human": "31.502479"
+          },
+          "USDC": {
+            "raw": "10000000",
+            "decimals": 6,
+            "human": "10"
+          }
+        }
+      },
+      {
+        "address": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+        "roles": [
+          "uniswap_v2_pair"
+        ],
+        "assets": {
+          "ETH": {
+            "raw": "0",
+            "decimals": 18,
+            "human": "0"
+          },
+          "MOG": {
+            "raw": "22055200426276344053227136751532",
+            "decimals": 18,
+            "human": "22055200426276.34405322713675"
+          },
+          "WETH": {
+            "raw": "1212603124076658730150",
+            "decimals": 18,
+            "human": "1212.60312407665873015"
+          },
+          "USDT": {
+            "raw": "0",
+            "decimals": 6,
+            "human": "0"
+          },
+          "USDC": {
+            "raw": "0",
+            "decimals": 6,
+            "human": "0"
+          }
+        }
+      }
+    ],
+    "supply_reconciliation": {
+      "total_supply_raw": "390570159911439123354797210149241",
+      "dead_mog_raw": "30128002009744921670199237758493",
+      "zero_mog_raw": "82859552000000000000000000",
+      "show_supply_raw": "360442075042142201684597972390748",
+      "computed_total_minus_dead_minus_zero_raw": "360442075042142201684597972390748",
+      "matches_show_supply": true,
+      "pair_mog_raw": "22055200426276344053227136751532",
+      "contract_mog_raw": "1398616187385371058320338596"
+    }
+  },
+  "history": {
+    "deployment_to_capture_special_events": {
+      "AutoLiquify": {
+        "all_time_count": 0,
+        "logs": [],
+        "complete_range": [
+          17731591,
+          25541974
+        ]
+      },
+      "ClearStuck": {
+        "all_time_count": 0,
+        "logs": [],
+        "complete_range": [
+          17731591,
+          25541974
+        ]
+      },
+      "ClearToken": {
+        "all_time_count": 12,
+        "logs": [
+          {
+            "block_number": 17735050,
+            "timestamp": "2023-07-20T14:43:59Z",
+            "transaction_hash": "0xd41d6cb39f03e39db21bccfa4381c60c4148e1366827f72c8cfa5de8c09f4c4c",
+            "decoded": {
+              "token": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+              "amount_raw": "671540088560876645202789850843"
+            }
+          },
+          {
+            "block_number": 17745930,
+            "timestamp": "2023-07-22T03:16:59Z",
+            "transaction_hash": "0x6691e10aa7fffeb09618b69527943e257d64eae6f589fade4f0de8d9f53b81d2",
+            "decoded": {
+              "token": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+              "amount_raw": "7894588173799250988994363699"
+            }
+          },
+          {
+            "block_number": 17977891,
+            "timestamp": "2023-08-23T14:05:35Z",
+            "transaction_hash": "0x8b43f0980892e85a558ba8e292c1890542de480a248e10f8618e2f60851dc2b4",
+            "decoded": {
+              "token": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+              "amount_raw": "1000000000000000000000000000000"
+            }
+          },
+          {
+            "block_number": 18085278,
+            "timestamp": "2023-09-07T14:55:23Z",
+            "transaction_hash": "0x259e5cd0b7eae24038f44d86153c06948b951e0fd8d761f8f7150de5a036475c",
+            "decoded": {
+              "token": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+              "amount_raw": "23432865790841884533658137130"
+            }
+          },
+          {
+            "block_number": 20063890,
+            "timestamp": "2024-06-10T20:42:59Z",
+            "transaction_hash": "0xa1d9a9574a153ef8ec2c454926e38450b47b5bd6273604363ddcb48bbb7408bd",
+            "decoded": {
+              "token": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+              "amount_raw": "127427087993000000000000000000"
+            }
+          },
+          {
+            "block_number": 20352941,
+            "timestamp": "2024-07-21T05:52:47Z",
+            "transaction_hash": "0xe1b870a5e6257bdba7118390b6fce31ee4bbd48ac0933b5182897847c2deef11",
+            "decoded": {
+              "token": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+              "amount_raw": "1069996"
+            }
+          },
+          {
+            "block_number": 20395432,
+            "timestamp": "2024-07-27T04:15:11Z",
+            "transaction_hash": "0x4cdbf4d314e5a451b81cd6c71361faf38ec620aaf78d31b3092297044a7de647",
+            "decoded": {
+              "token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+              "amount_raw": "100000000"
+            }
+          },
+          {
+            "block_number": 20736893,
+            "timestamp": "2024-09-12T20:23:23Z",
+            "transaction_hash": "0x2c535f70e1ebb40c84638adea82330282f4b592b16bbf14cb99ab3a67d3eafdf",
+            "decoded": {
+              "token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+              "amount_raw": "1192785043"
+            }
+          },
+          {
+            "block_number": 21798004,
+            "timestamp": "2025-02-07T23:45:59Z",
+            "transaction_hash": "0x18e120b35f7c827f2a8246d03b55ae486fcf0469c2814769dde8ba9cc29aeb86",
+            "decoded": {
+              "token": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+              "amount_raw": "113546544"
+            }
+          },
+          {
+            "block_number": 22214406,
+            "timestamp": "2025-04-07T03:40:59Z",
+            "transaction_hash": "0xec85dccc219f6cdb1ae6d0b1be593c5be3d8344fdc425996a02ccaf07b712cd5",
+            "decoded": {
+              "token": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+              "amount_raw": "2211188982175317532930969237"
+            }
+          },
+          {
+            "block_number": 22969037,
+            "timestamp": "2025-07-21T17:24:11Z",
+            "transaction_hash": "0x133b83739462f37684eb61a0dc93df9013d669db5d7f0c2255dcdc8aecc0b349",
+            "decoded": {
+              "token": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+              "amount_raw": "814879886170651765546186868"
+            }
+          },
+          {
+            "block_number": 24726348,
+            "timestamp": "2026-03-24T08:59:11Z",
+            "transaction_hash": "0xc08d10325b392b1d770708935e61eb90346d624ec1b4665cfafc6c16daf576b7",
+            "decoded": {
+              "token": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+              "amount_raw": "1000000000000000000000000"
+            }
+          }
+        ],
+        "complete_range": [
+          17731591,
+          25541974
+        ]
+      },
+      "EditTax": {
+        "all_time_count": 0,
+        "logs": [],
+        "complete_range": [
+          17731591,
+          25541974
+        ]
+      },
+      "OwnershipTransferred": {
+        "all_time_count": 2,
+        "logs": [
+          {
+            "block_number": 17731591,
+            "timestamp": "2023-07-20T03:06:47Z",
+            "transaction_hash": "0xdb32e45e46546066b3afe1224c59dcbd37696652cabda1ed14c87be368c95958",
+            "decoded": {
+              "previous_owner": "0x0000000000000000000000000000000000000000",
+              "new_owner": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8"
+            }
+          },
+          {
+            "block_number": 17731932,
+            "timestamp": "2023-07-20T04:15:23Z",
+            "transaction_hash": "0xc5aad0f6c6ab72c4775b0a2a7672eefd5760d532d4949c51105f30c6176aec6e",
+            "decoded": {
+              "previous_owner": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+              "new_owner": "0x0000000000000000000000000000000000000000"
+            }
+          }
+        ],
+        "complete_range": [
+          17731591,
+          25541974
+        ]
+      },
+      "set_MaxTX": {
+        "all_time_count": 0,
+        "logs": [],
+        "complete_range": [
+          17731591,
+          25541974
+        ]
+      },
+      "set_MaxWallet": {
+        "all_time_count": 0,
+        "logs": [],
+        "complete_range": [
+          17731591,
+          25541974
+        ]
+      },
+      "set_Receivers": {
+        "all_time_count": 0,
+        "logs": [],
+        "complete_range": [
+          17731591,
+          25541974
+        ]
+      },
+      "set_SwapBack": {
+        "all_time_count": 0,
+        "logs": [],
+        "complete_range": [
+          17731591,
+          25541974
+        ]
+      },
+      "user_TxExempt": {
+        "all_time_count": 0,
+        "logs": [],
+        "complete_range": [
+          17731591,
+          25541974
+        ]
+      },
+      "user_exemptfromfees": {
+        "all_time_count": 0,
+        "logs": [],
+        "complete_range": [
+          17731591,
+          25541974
+        ]
+      }
+    },
+    "launch_configuration_transactions": [
+      {
+        "block_number": 17731777,
+        "timestamp": "2023-07-20T03:44:11Z",
+        "transaction_hash": "0x9bb3e7f1fa0020c58002b36728911aee4fc12fb2926ffe8a9790ebc87607a90c",
+        "caller": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+        "method": "startTrading",
+        "args": [],
+        "status": 1
+      },
+      {
+        "block_number": 17731782,
+        "timestamp": "2023-07-20T03:45:11Z",
+        "transaction_hash": "0x42010178d4161b1d5024bcfe998625448284cf06a991381e86d109aa7ca2b8fe",
+        "caller": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+        "method": "reduceFee",
+        "args": [],
+        "status": 1
+      },
+      {
+        "block_number": 17731786,
+        "timestamp": "2023-07-20T03:45:59Z",
+        "transaction_hash": "0xd8f6d9a554f4f9bfd2b63f54b186082ae54fc572f51eb7c2c7132127ff439c75",
+        "caller": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+        "method": "reduceFee",
+        "args": [],
+        "status": 1
+      },
+      {
+        "block_number": 17731841,
+        "timestamp": "2023-07-20T03:57:11Z",
+        "transaction_hash": "0x4c51838109b5c956a7a7f6105c459ea636475f71e852337aec9e3487aa8d2ad8",
+        "caller": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+        "method": "setStructure",
+        "args": [
+          0,
+          0,
+          0
+        ],
+        "status": 1
+      },
+      {
+        "block_number": 17731876,
+        "timestamp": "2023-07-20T04:04:11Z",
+        "transaction_hash": "0x61094d46315ebbf639ae5eaee30a4af3c08900dc1e4f91f3428e560e8b7f7289",
+        "caller": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+        "method": "removeLimits",
+        "args": [],
+        "status": 1
+      },
+      {
+        "block_number": 17731932,
+        "timestamp": "2023-07-20T04:15:23Z",
+        "transaction_hash": "0xc5aad0f6c6ab72c4775b0a2a7672eefd5760d532d4949c51105f30c6176aec6e",
+        "caller": "0x20e12a9a5c738e265ec81d6f2a8e77785b6aa8b8",
+        "method": "renounceOwnership",
+        "args": [],
+        "status": 1
+      }
+    ],
+    "recent_transfer_sample": {
+      "order": "newest_first",
+      "limit": 25,
+      "logs": [
+        {
+          "block_number": 25541973,
+          "timestamp": "2026-07-16T01:35:11Z",
+          "transaction_hash": "0xf975afa29c7f952eb89c8c8e6f7a3487041ddfc056644695ec9410d1cae4bd07",
+          "from": "0xae4705dc0816ee6d8a13f1c72780ec5021915fed",
+          "to": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+          "amount_raw": "194738265387700000000000000",
+          "amount_human": "194738265.3877"
+        },
+        {
+          "block_number": 25541973,
+          "timestamp": "2026-07-16T01:35:11Z",
+          "transaction_hash": "0xf975afa29c7f952eb89c8c8e6f7a3487041ddfc056644695ec9410d1cae4bd07",
+          "from": "0xae4705dc0816ee6d8a13f1c72780ec5021915fed",
+          "to": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+          "amount_raw": "0",
+          "amount_human": "0"
+        },
+        {
+          "block_number": 25541972,
+          "timestamp": "2026-07-16T01:34:59Z",
+          "transaction_hash": "0xc95d1ed747179444bced2c98065b6072a3dee54ed39a35e3f31304b9412b7520",
+          "from": "0xa58bdd0ab5ebbb8dc425090fea8fd0ba969c1668",
+          "to": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+          "amount_raw": "85005396174000000000000000",
+          "amount_human": "85005396.174"
+        },
+        {
+          "block_number": 25541972,
+          "timestamp": "2026-07-16T01:34:59Z",
+          "transaction_hash": "0xc95d1ed747179444bced2c98065b6072a3dee54ed39a35e3f31304b9412b7520",
+          "from": "0xa58bdd0ab5ebbb8dc425090fea8fd0ba969c1668",
+          "to": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+          "amount_raw": "0",
+          "amount_human": "0"
+        },
+        {
+          "block_number": 25541972,
+          "timestamp": "2026-07-16T01:34:59Z",
+          "transaction_hash": "0xc95d1ed747179444bced2c98065b6072a3dee54ed39a35e3f31304b9412b7520",
+          "from": "0xa58bdd0ab5ebbb8dc425090fea8fd0ba969c1668",
+          "to": "0xb1f05c103cdd519e9f9785cda23c03635a598be4",
+          "amount_raw": "1912186826000000000000000",
+          "amount_human": "1912186.826"
+        },
+        {
+          "block_number": 25541972,
+          "timestamp": "2026-07-16T01:34:59Z",
+          "transaction_hash": "0xc95d1ed747179444bced2c98065b6072a3dee54ed39a35e3f31304b9412b7520",
+          "from": "0xa58bdd0ab5ebbb8dc425090fea8fd0ba969c1668",
+          "to": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+          "amount_raw": "0",
+          "amount_human": "0"
+        },
+        {
+          "block_number": 25541972,
+          "timestamp": "2026-07-16T01:34:59Z",
+          "transaction_hash": "0xc95d1ed747179444bced2c98065b6072a3dee54ed39a35e3f31304b9412b7520",
+          "from": "0x851f6d8a581825f8210276d35e8c39483570b07d",
+          "to": "0xa58bdd0ab5ebbb8dc425090fea8fd0ba969c1668",
+          "amount_raw": "86917583000000000000000000",
+          "amount_human": "86917583"
+        },
+        {
+          "block_number": 25541972,
+          "timestamp": "2026-07-16T01:34:59Z",
+          "transaction_hash": "0xc95d1ed747179444bced2c98065b6072a3dee54ed39a35e3f31304b9412b7520",
+          "from": "0x851f6d8a581825f8210276d35e8c39483570b07d",
+          "to": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+          "amount_raw": "0",
+          "amount_human": "0"
+        },
+        {
+          "block_number": 25541687,
+          "timestamp": "2026-07-16T00:37:35Z",
+          "transaction_hash": "0xdb702ab6086a96b5df0b18e2c3581cce450c038991c3b6247efee8092ccdc2ed",
+          "from": "0xae4705dc0816ee6d8a13f1c72780ec5021915fed",
+          "to": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+          "amount_raw": "108187925215400000000000000",
+          "amount_human": "108187925.2154"
+        },
+        {
+          "block_number": 25541687,
+          "timestamp": "2026-07-16T00:37:35Z",
+          "transaction_hash": "0xdb702ab6086a96b5df0b18e2c3581cce450c038991c3b6247efee8092ccdc2ed",
+          "from": "0xae4705dc0816ee6d8a13f1c72780ec5021915fed",
+          "to": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+          "amount_raw": "0",
+          "amount_human": "0"
+        },
+        {
+          "block_number": 25541613,
+          "timestamp": "2026-07-16T00:22:47Z",
+          "transaction_hash": "0xdc4dc04552e1a29f89cc3f08428536146da87a97cc79fb28adb85036ed2f3f1d",
+          "from": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+          "to": "0xb837c86126afd947f9eb20253810bb4b9a906109",
+          "amount_raw": "9379573287996069014026572",
+          "amount_human": "9379573.287996069014026572"
+        },
+        {
+          "block_number": 25541613,
+          "timestamp": "2026-07-16T00:22:47Z",
+          "transaction_hash": "0xdc4dc04552e1a29f89cc3f08428536146da87a97cc79fb28adb85036ed2f3f1d",
+          "from": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+          "to": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+          "amount_raw": "0",
+          "amount_human": "0"
+        },
+        {
+          "block_number": 25541494,
+          "timestamp": "2026-07-15T23:58:59Z",
+          "transaction_hash": "0xdb19190447860fb6c149b1654afa0c5a76c83186c50836c7ef6fd854568db6b8",
+          "from": "0x85529bbf0c33714dde4a07545925e80a838f67ca",
+          "to": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+          "amount_raw": "8233684586671331473711963152",
+          "amount_human": "8233684586.671331473711963152"
+        },
+        {
+          "block_number": 25541494,
+          "timestamp": "2026-07-15T23:58:59Z",
+          "transaction_hash": "0xdb19190447860fb6c149b1654afa0c5a76c83186c50836c7ef6fd854568db6b8",
+          "from": "0x85529bbf0c33714dde4a07545925e80a838f67ca",
+          "to": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+          "amount_raw": "0",
+          "amount_human": "0"
+        },
+        {
+          "block_number": 25541456,
+          "timestamp": "2026-07-15T23:51:23Z",
+          "transaction_hash": "0xe088fbc4a659970dce431097fe1500c91884f6b98b8f04cc95f1867856b501d8",
+          "from": "0xa58bdd0ab5ebbb8dc425090fea8fd0ba969c1668",
+          "to": "0x000000000004444c5dc75cb358380d2e3de08a90",
+          "amount_raw": "35349386595359771903498945",
+          "amount_human": "35349386.595359771903498945"
+        },
+        {
+          "block_number": 25541456,
+          "timestamp": "2026-07-15T23:51:23Z",
+          "transaction_hash": "0xe088fbc4a659970dce431097fe1500c91884f6b98b8f04cc95f1867856b501d8",
+          "from": "0xa58bdd0ab5ebbb8dc425090fea8fd0ba969c1668",
+          "to": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+          "amount_raw": "0",
+          "amount_human": "0"
+        },
+        {
+          "block_number": 25541456,
+          "timestamp": "2026-07-15T23:51:23Z",
+          "transaction_hash": "0xe088fbc4a659970dce431097fe1500c91884f6b98b8f04cc95f1867856b501d8",
+          "from": "0xa756ff534af05105012034b53990b264ac5efe18",
+          "to": "0xa58bdd0ab5ebbb8dc425090fea8fd0ba969c1668",
+          "amount_raw": "35349386595359771903498945",
+          "amount_human": "35349386.595359771903498945"
+        },
+        {
+          "block_number": 25541456,
+          "timestamp": "2026-07-15T23:51:23Z",
+          "transaction_hash": "0xe088fbc4a659970dce431097fe1500c91884f6b98b8f04cc95f1867856b501d8",
+          "from": "0xa756ff534af05105012034b53990b264ac5efe18",
+          "to": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+          "amount_raw": "0",
+          "amount_human": "0"
+        },
+        {
+          "block_number": 25541446,
+          "timestamp": "2026-07-15T23:49:23Z",
+          "transaction_hash": "0x7e4da5936b242e522ef2552089184c13fb562e971e535240462501dcb0931996",
+          "from": "0x85529bbf0c33714dde4a07545925e80a838f67ca",
+          "to": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+          "amount_raw": "8233684586671331473711963151",
+          "amount_human": "8233684586.671331473711963151"
+        },
+        {
+          "block_number": 25541446,
+          "timestamp": "2026-07-15T23:49:23Z",
+          "transaction_hash": "0x7e4da5936b242e522ef2552089184c13fb562e971e535240462501dcb0931996",
+          "from": "0x85529bbf0c33714dde4a07545925e80a838f67ca",
+          "to": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+          "amount_raw": "0",
+          "amount_human": "0"
+        },
+        {
+          "block_number": 25541396,
+          "timestamp": "2026-07-15T23:39:11Z",
+          "transaction_hash": "0x7eea70b2c93ebe0eb211f7349ead0c7bdb5af448226350f6210cc1c4202d79a2",
+          "from": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+          "to": "0xbdb3ba9ffe392549e1f8658dd2630c141fdf47b6",
+          "amount_raw": "2119499580116916056268589477",
+          "amount_human": "2119499580.116916056268589477"
+        },
+        {
+          "block_number": 25541396,
+          "timestamp": "2026-07-15T23:39:11Z",
+          "transaction_hash": "0x7eea70b2c93ebe0eb211f7349ead0c7bdb5af448226350f6210cc1c4202d79a2",
+          "from": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+          "to": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+          "amount_raw": "0",
+          "amount_human": "0"
+        },
+        {
+          "block_number": 25541392,
+          "timestamp": "2026-07-15T23:38:23Z",
+          "transaction_hash": "0x07128eef16d9dafe705bfd4d4cc1ad5853213c41c58ac4cc574a94fa99dda473",
+          "from": "0x75a18e44b06c2c6951a6815d1a42b2e78c14d78b",
+          "to": "0x6522b7f9d481eceb96557f44753a4b893f837e90",
+          "amount_raw": "113724099237862000000000000",
+          "amount_human": "113724099.237862"
+        },
+        {
+          "block_number": 25541392,
+          "timestamp": "2026-07-15T23:38:23Z",
+          "transaction_hash": "0x07128eef16d9dafe705bfd4d4cc1ad5853213c41c58ac4cc574a94fa99dda473",
+          "from": "0x75a18e44b06c2c6951a6815d1a42b2e78c14d78b",
+          "to": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+          "amount_raw": "0",
+          "amount_human": "0"
+        },
+        {
+          "block_number": 25541388,
+          "timestamp": "2026-07-15T23:37:35Z",
+          "transaction_hash": "0xf8e45626d40feeb1facd0efe4906847b51192b755adec90cb757a24da5a603ed",
+          "from": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+          "to": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
+          "amount_raw": "1786578405347632459860000000",
+          "amount_human": "1786578405.34763245986"
+        }
+      ]
+    },
+    "coverage_note": "Advanced indexed history covers every emitted non-Transfer event type from deployment through the capture block; launch configuration calls without dedicated events are recovered from deployer transactions through renunciation."
+  },
   "abi_inventory": {
     "event_count": 13,
     "events": [
@@ -266,347 +1182,54 @@
       }
     ]
   },
-  "audit_notes": [
-    "Live balances, storage slots, and common view calls are captured from the proxy/live address when a proxy is present.",
-    "Private mappings and structs are not globally enumerable without known keys.",
-    "DeepWiki candidates must be checked against this block-specific live state before proof.",
-    "ABI inventory and event samples are bounded hints for prioritization; proof must use source-level tests or fork probes.",
-    "Parameterized view probes use event-derived keys and dependency addresses, so failures are hints rather than complete absence of state."
-  ],
-  "balances": {
-    "erc20": [
-      {
-        "decimals": 18,
-        "human_balance": "0.0000001",
-        "name": "Wrapped Ether",
-        "raw_balance": "100000000000",
-        "symbol": "WETH",
-        "token": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-        "usd_value": "unknown"
-      },
-      {
-        "decimals": 6,
-        "human_balance": "31.502479",
-        "name": "Tether USD",
-        "raw_balance": "31502479",
-        "symbol": "USDT",
-        "token": "0xdac17f958d2ee523a2206206994597c13d831ec7",
-        "usd_value": "unknown"
-      },
-      {
-        "decimals": 6,
-        "human_balance": "10",
-        "name": "USD Coin",
-        "raw_balance": "10000000",
-        "symbol": "USDC",
-        "token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-        "usd_value": "unknown"
-      }
-    ],
-    "native": {
-      "human": "0.003935208946035027",
-      "raw": "3935208946035027",
-      "symbol": "ETH"
-    }
-  },
-  "captured_at": "2026-07-16T00:48:54Z",
-  "chain": "ethereum",
-  "chain_id": 1,
-  "common_views": {
-    "TradingOpen": true,
-    "_maxTxAmount": 390570159911439123354797210149241,
-    "_maxWalletToken": 390570159911439123354797210149241,
-    "_owner": "",
-    "admin": "",
-    "decimals": 18,
-    "factory": "",
-    "getOwner": "",
-    "name": "Mog Coin",
-    "owner": "",
-    "pair": "0xc2eab7d33d3cb97692ecb231a5d0e4a649cb539d",
-    "router": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d",
-    "showSupply": 360442075042142201684597972390748,
-    "swapEnabled": true,
-    "swapThreshold": 2944830000000000000000000000000,
-    "symbol": "Mog",
-    "token0": "",
-    "token1": "",
-    "totalFee": 4,
-    "totalSupply": 390570159911439123354797210149241
-  },
-  "deepwiki_audit_focus": [
-    "Prioritize proof of unauthorized value extraction, excess token allocation, excess claim/reward, stuck-fund recovery abuse, and invariant-breaking swaps or migrations.",
-    "Check each payable and value-movement function against balance deltas, reserve/circulating-supply accounting, delegatecall target selection, and min-output checks.",
-    "Check privileged functions separately for externally reachable role bypass or misconfigured live roles; admin-key compromise alone is not a valid critical path.",
-    "Live target holds native balance: 3935208946035027 wei ETH; every withdrawal/recovery/claim/swap path must reconcile against this custody.",
-    "Live target holds ERC20 balance: largest observed WETH 0.0000001; include token-drain and accounting-liability checks."
-  ],
-  "dependencies": [
+  "missing_evidence": [
     {
-      "address": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d",
-      "name": "router"
+      "id": "private_mapping_global_enumeration",
+      "bounded_missing": "Solidity mappings are not enumerable; authorization and exemption state is storage-proven only for the known actor set recorded here.",
+      "promotion_rule": "Probe any newly identified actor key at the pinned block before relying on its mapping state."
     },
     {
-      "name": "DEAD",
-      "address": "0x000000000000000000000000000000000000dead",
-      "source": "src/MOG.sol"
+      "id": "other_erc20_inventory",
+      "bounded_missing": "Vanilla RPC cannot enumerate every spam or unsolicited ERC20 held by an address; MOG, ETH, WETH, USDT, and USDC are explicitly refreshed for all custody actors.",
+      "promotion_rule": "Query balanceOf for any additional token named by a candidate before proving a drain."
     },
     {
-      "name": "ZERO",
-      "address": "0x0000000000000000000000000000000000000000",
-      "source": "src/MOG.sol"
-    }
-  ],
-  "dependency_context": [
-    {
-      "address": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d",
-      "code_size_bytes": 21943,
-      "erc20_identity": {
-        "decimals": null,
-        "name": "",
-        "symbol": ""
-      },
-      "name": "router",
-      "native_balance_wei": 25000000000000000
-    }
-  ],
-  "event_activity": {
-    "ClearToken": {
-      "sample_count": 0,
-      "sample_logs": [],
-      "sample_window_blocks": 10000,
-      "signature": "ClearToken(address,uint256)"
-    },
-    "set_SwapBack": {
-      "sample_count": 0,
-      "sample_logs": [],
-      "sample_window_blocks": 10000,
-      "signature": "set_SwapBack(uint256,bool)"
-    },
-    "user_exemptfromfees": {
-      "sample_count": 0,
-      "sample_logs": [],
-      "sample_window_blocks": 10000,
-      "signature": "user_exemptfromfees(address,bool)"
-    }
-  },
-  "implementation": {
-    "address": "",
-    "code_size_bytes": 0,
-    "native_balance_wei": 0,
-    "provided": false,
-    "resolved_from_eip1967": false
-  },
-  "latest_block": 25541742,
-  "mapping_key_hints": {},
-  "parameterized_views": {
-    "allowance": {
-      "inputs": [
-        {
-          "name": "holder",
-          "type": "address"
-        },
-        {
-          "name": "spender",
-          "type": "address"
-        }
-      ],
-      "sample_count": 3,
-      "samples": [
-        {
-          "args": [
-            "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
-            "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a"
-          ],
-          "decoded_output": 0,
-          "raw_output": "0x0000000000000000000000000000000000000000000000000000000000000000"
-        },
-        {
-          "args": [
-            "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
-            "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
-          ],
-          "decoded_output": 115792089237316195423570985008687907853269984665640564039457584007913129639935,
-          "raw_output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-        },
-        {
-          "args": [
-            "0x7a250d5630b4cf539739df2c5dacb4c659f2488d",
-            "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a"
-          ],
-          "decoded_output": 0,
-          "raw_output": "0x0000000000000000000000000000000000000000000000000000000000000000"
-        }
-      ],
-      "signature": "allowance(address,address)"
-    },
-    "balanceOf": {
-      "inputs": [
-        {
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "sample_count": 2,
-      "samples": [
-        {
-          "args": [
-            "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a"
-          ],
-          "decoded_output": 1398616187385371058320338596,
-          "raw_output": "0x00000000000000000000000000000000000000000484e87f711bcff7baf26ea4"
-        },
-        {
-          "args": [
-            "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
-          ],
-          "decoded_output": 0,
-          "raw_output": "0x0000000000000000000000000000000000000000000000000000000000000000"
-        }
-      ],
-      "signature": "balanceOf(address)"
-    },
-    "checkRatio": {
-      "inputs": [
-        {
-          "name": "ratio",
-          "type": "uint256"
-        },
-        {
-          "name": "accuracy",
-          "type": "uint256"
-        }
-      ],
-      "sample_count": 3,
-      "samples": [
-        {
-          "args": [
-            0,
-            0
-          ],
-          "decoded_output": false,
-          "raw_output": "0x0000000000000000000000000000000000000000000000000000000000000000"
-        },
-        {
-          "args": [
-            0,
-            1
-          ],
-          "decoded_output": false,
-          "raw_output": "0x0000000000000000000000000000000000000000000000000000000000000000"
-        },
-        {
-          "args": [
-            1,
-            0
-          ],
-          "decoded_output": false,
-          "raw_output": "0x0000000000000000000000000000000000000000000000000000000000000000"
-        }
-      ],
-      "signature": "checkRatio(uint256,uint256)"
-    },
-    "showBacking": {
-      "inputs": [
-        {
-          "name": "accuracy",
-          "type": "uint256"
-        }
-      ],
-      "sample_count": 2,
-      "samples": [
-        {
-          "args": [
-            0
-          ],
-          "decoded_output": 0,
-          "raw_output": "0x0000000000000000000000000000000000000000000000000000000000000000"
-        },
-        {
-          "args": [
-            1
-          ],
-          "decoded_output": 0,
-          "raw_output": "0x0000000000000000000000000000000000000000000000000000000000000000"
-        }
-      ],
-      "signature": "showBacking(uint256)"
-    }
-  },
-  "proxy_slots": {
-    "admin": "",
-    "admin_raw": "0x0000000000000000000000000000000000000000000000000000000000000000",
-    "beacon": "",
-    "beacon_raw": "0x0000000000000000000000000000000000000000000000000000000000000000",
-    "implementation": "",
-    "implementation_raw": "0x0000000000000000000000000000000000000000000000000000000000000000"
-  },
-  "rpc_endpoint_used": "https://rpc.ankr.com/eth/77455d9b7beab9043b352e3745df6443e4b16c756328849e15bd800e9d3171f1",
-  "schema_version": "acte-live-context-v3",
-  "source_identity": {
-    "build": {
-      "build_passed": true,
-      "command": "forge build",
-      "project_dir": "foundry_targets/ethereum/0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
-      "returncode": 0,
-      "schema_version": "acte-foundry-build-verification-v1",
-      "stderr_tail": "",
-      "stdout_tail": "Compiling 1 files with Solc 0.8.18\nSolc 0.8.18 finished in 275.55ms\nCompiler run successful!\n"
-    },
-    "compiler_version": "v0.8.18+commit.87f61d96",
-    "contract_name": "MOG",
-    "source_address": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
-    "source_files": [
-      "src/MOG.sol"
-    ],
-    "verified": true
-  },
-  "target": {
-    "address": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
-    "code_size_bytes": 8321,
-    "deployment_kind": "implementation_or_direct",
-    "explorer_url": "https://etherscan.io/address/0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
-    "implementation_address": "",
-    "input_address": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
-    "label": "mogcoin",
-    "native_balance_wei": 3935208946035027,
-    "native_symbol": "ETH",
-    "proxy_address": "",
-    "source_address": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a"
-  },
-  "view_errors": {},
-  "protocol": {
-    "name": "Mog Coin",
-    "source_repo": "incjanta/mogcoin",
-    "paid_impact_focus": "fund extraction and reward extraction"
-  },
-  "source_address_constants": [
-    {
-      "name": "DEAD",
-      "address": "0x000000000000000000000000000000000000dead",
-      "source_file": "src/MOG.sol"
+      "id": "full_transfer_history",
+      "bounded_missing": "The high-volume Transfer stream is represented by the 25 most recent logs; all emitted configuration, ownership, recovery, and AutoLiquify event types are queried over the complete deployment-to-capture range.",
+      "promotion_rule": "Fetch a candidate-specific Transfer range when historical balance flow is part of the exploit claim."
     },
     {
-      "name": "ZERO",
-      "address": "0x0000000000000000000000000000000000000000",
-      "source_file": "src/MOG.sol"
+      "id": "candidate_specific_fork_execution",
+      "bounded_missing": "This launch artifact proves storage, calls, balances, pair state, and indexed history, but does not impersonate every actor against every write function on a fork.",
+      "promotion_rule": "No critical candidate may be promoted without a pinned-fork or equivalent local reproduction at this block."
     }
   ],
   "context_quality": {
-    "status": "needs_enrichment",
+    "status": "enriched",
+    "audit_launch_ready": true,
     "deepwiki_usable": true,
     "capture_is_block_pinned": true,
+    "stale_after": "2026-07-23T01:35:23Z",
+    "max_age_hours": 168,
     "required_before_critical_promotion": [
-      "Uniswap V2 pair code identity, token0, token1, reserves, LP total supply, and current pair MOG balance at the pinned block",
-      "current owner or renounced-owner confirmation plus live authorization, fee-exemption, and max-transaction-exemption state for known actors",
-      "current auto-liquidity, marketing, development, buyback, and burn receiver addresses",
-      "current liquidity, marketing, development, buyback, burn, denominator, buy, sell, transfer, and backing-ratio parameters",
-      "decoded Transfer, AutoLiquify, EditTax, set_Receivers, ClearStuck, ClearToken, and limit-change history beyond the bounded sampled window",
-      "MOG balances for the pair, contract, DEAD, ZERO, and fee receivers reconciled to total supply and showSupply",
-      "contract ETH, WETH, USDT, USDC, and other ERC20 balances refreshed and reconciled before any drain proof",
-      "fork-confirmed actor matrix for every public and owner-only value-moving or configuration function"
+      "Probe any newly identified actor key at the pinned block before relying on its mapping state.",
+      "Query balanceOf for any additional token named by a candidate before proving a drain.",
+      "Fetch a candidate-specific Transfer range when historical balance flow is part of the exploit claim.",
+      "No critical candidate may be promoted without a pinned-fork or equivalent local reproduction at this block."
     ],
-    "rule": "DeepWiki may generate candidates, but no critical finding is promoted until its required live preconditions are refreshed and proven.",
-    "blueprint": "mogcoin_fund_reward.json"
-  }
+    "rule": "Launch questions may use this snapshot; candidate promotion still requires candidate-specific fresh state and local proof.",
+    "blueprint": "blueprints/mogcoin_fund_reward.json"
+  },
+  "evidence_sources": [
+    "Ethereum JSON-RPC block-pinned eth_call, eth_getStorageAt, eth_getBalance, and eth_getCode",
+    "Ankr indexed ankr_getLogs and ankr_getTransactionsByAddress for bounded history",
+    "Verified src/MOG.sol at source commit 6c30620064e24c3cf417e58ad6c76fff82428194",
+    "Etherscan deployment transaction 0xdb32e45e46546066b3afe1224c59dcbd37696652cabda1ed14c87be368c95958"
+  ],
+  "audit_notes": [
+    "Values are captured at exactly latest_block and must not be silently reused after stale_after.",
+    "Private mappings are probed only for recorded known actors; absence elsewhere is not inferred.",
+    "Owner-only configuration is not a valid paid exploit without an unprivileged authorization bypass.",
+    "Public manualSend and clearStuckToken always forward to the stored auto-liquidity receiver; attacker capture requires a separate redirection path."
+  ]
 }

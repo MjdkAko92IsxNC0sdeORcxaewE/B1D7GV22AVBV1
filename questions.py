@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 
 from bot_blueprint import bullets, load_blueprint, numbered
@@ -12,6 +13,10 @@ MAX_REPO = BLUEPRINT["max_repo"]
 SOURCE_REPO = BLUEPRINT["source_repo"]
 REPO_NAME = BLUEPRINT["repo_name"]
 run_number = os.environ.get("GITHUB_RUN_NUMBER", "0")
+
+
+class LiveContextError(ValueError):
+    """Raised when the canonical live snapshot is missing, stale, or misbound."""
 
 
 def get_cyclic_index(run_number, max_index=100):
@@ -67,6 +72,8 @@ def _blueprint_memory() -> str:
     surfaces = bullets(BLUEPRINT["high_value_surfaces"], indent="* ")
     impact_mapping = bullets(BLUEPRINT["impact_mapping"], indent="* ")
     rejection_memory = bullets(BLUEPRINT["known_rejection_memory"], indent="- ")
+    live_context_path = BLUEPRINT.get("live_context_path", "setup/live_context.json")
+    live_context_summary = json.dumps(BLUEPRINT.get("live_context_summary", {}), sort_keys=True)
 
     return f"""## DeepWiki Memory Blueprint
 Project: {BLUEPRINT["project_name"]}
@@ -79,6 +86,8 @@ Protocol focus:
 
 Live context hint:
 Use live_context.json values if available: {BLUEPRINT["live_context_hint"]}.
+Canonical live context path: {live_context_path}
+Blueprint-bound live context summary: {live_context_summary}
 
 Context-only interface files:
 {interfaces}
@@ -110,47 +119,108 @@ Only output one of these verdicts:
 """
 
 
-def _live_context_snapshot(max_chars: int = 30000) -> str:
+def _default_live_context_path() -> Path:
     project_root = Path(__file__).resolve().parent
-    live_context_path = Path(os.environ.get("LIVE_CONTEXT_PATH", project_root / "setup" / "live_context.json"))
+    configured_path = BLUEPRINT.get("live_context_path", "setup/live_context.json")
+    live_context_path = Path(os.environ.get("LIVE_CONTEXT_PATH", configured_path))
     if not live_context_path.is_absolute():
         live_context_path = project_root / live_context_path
+    return live_context_path
 
-    candidate_paths = [live_context_path]
 
-    sections = []
-    missing_paths = []
-    for path in candidate_paths:
-        if not path.exists():
-            missing_paths.append(str(path))
-            continue
+def _parse_utc(value: object, field: str) -> datetime:
+    if not isinstance(value, str) or not value.strip():
+        raise LiveContextError(f"stale live context rejected: missing {field}")
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise LiveContextError(f"stale live context rejected: invalid {field}") from exc
+    if parsed.tzinfo is None:
+        raise LiveContextError(f"stale live context rejected: {field} must include a timezone")
+    return parsed.astimezone(timezone.utc)
 
-        try:
-            content = path.read_text(encoding="utf-8").strip()
-        except OSError as exc:
-            sections.append(f"Source: {path}\nCould not read live context: {exc}")
-            continue
 
-        if len(content) > max_chars:
-            content = content[:max_chars] + "\n...TRUNCATED..."
+def _live_context_stale_reasons(document: object, now: datetime | None = None) -> list[str]:
+    if not isinstance(document, dict):
+        return ["root must be a JSON object"]
 
-        sections.append(f"""Source: {path}
+    binding = BLUEPRINT.get("live_context_binding")
+    if not isinstance(binding, dict):
+        return ["blueprint is missing live_context_binding"]
+
+    reasons = []
+    protocol = document.get("protocol") if isinstance(document.get("protocol"), dict) else {}
+    target = document.get("target") if isinstance(document.get("target"), dict) else {}
+    quality = document.get("context_quality") if isinstance(document.get("context_quality"), dict) else {}
+
+    exact_checks = [
+        (protocol.get("name"), BLUEPRINT["project_name"], "protocol.name"),
+        (protocol.get("source_repo"), BLUEPRINT["source_repo"], "protocol.source_repo"),
+        (protocol.get("source_commit"), binding.get("source_commit"), "protocol.source_commit"),
+        (document.get("chain"), binding.get("chain"), "chain"),
+        (document.get("chain_id"), binding.get("chain_id"), "chain_id"),
+        (target.get("address"), binding.get("target_address"), "target.address"),
+        (quality.get("status"), binding.get("required_status"), "context_quality.status"),
+    ]
+    for actual, expected, label in exact_checks:
+        if isinstance(actual, str) and isinstance(expected, str):
+            matches = actual.lower() == expected.lower()
+        else:
+            matches = actual == expected
+        if not matches:
+            reasons.append(f"{label}={actual!r}, expected {expected!r}")
+
+    if quality.get("capture_is_block_pinned") is not True:
+        reasons.append("context_quality.capture_is_block_pinned is not true")
+    if not isinstance(document.get("latest_block"), int) or document["latest_block"] <= 0:
+        reasons.append("latest_block is missing or invalid")
+
+    try:
+        captured_at = _parse_utc(document.get("captured_at"), "captured_at")
+        stale_after = _parse_utc(quality.get("stale_after"), "context_quality.stale_after")
+    except LiveContextError as exc:
+        reasons.append(str(exc).replace("stale live context rejected: ", ""))
+    else:
+        now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
+        max_age_hours = binding.get("max_age_hours")
+        if isinstance(max_age_hours, int) and max_age_hours > 0:
+            age_hours = (now - captured_at).total_seconds() / 3600
+            if age_hours > max_age_hours:
+                reasons.append(f"capture age {age_hours:.1f}h exceeds {max_age_hours}h")
+        if now > stale_after:
+            reasons.append(f"snapshot expired at {stale_after.isoformat()}")
+        if captured_at > now and (captured_at - now).total_seconds() > 900:
+            reasons.append("captured_at is more than 15 minutes in the future")
+
+    return reasons
+
+
+def _live_context_snapshot(max_chars: int = 60000) -> str:
+    live_context_path = _default_live_context_path()
+
+    if not live_context_path.exists():
+        raise LiveContextError(f"stale live context rejected: missing canonical file {live_context_path}")
+    try:
+        content = live_context_path.read_text(encoding="utf-8").strip()
+        document = json.loads(content)
+    except (OSError, json.JSONDecodeError) as exc:
+        raise LiveContextError(f"stale live context rejected: cannot load {live_context_path}: {exc}") from exc
+
+    stale_reasons = _live_context_stale_reasons(document)
+    if stale_reasons:
+        raise LiveContextError("stale live context rejected: " + "; ".join(stale_reasons))
+
+    if len(content) > max_chars:
+        content = content[:max_chars] + "\n...TRUNCATED..."
+
+    return f"""## Live Context Snapshot
+The machine setup context passed the blueprint protocol/source/chain/target/status/age gate and is the canonical DeepWiki seed.
+
+Source: {live_context_path}
 
 ```json
 {content}
-```""")
-
-    if not sections:
-        return f"""## Live Context Snapshot
-No live context file was found at any expected source:
-{bullets(missing_paths)}
-For non-REJECT output, list the exact live commands needed and mark missing preconditions.
-"""
-
-    return f"""## Live Context Snapshot
-The machine setup context is the canonical DeepWiki seed. Reject stale context if target address, implementation, source files, chain, or paid-impact focus do not match the active blueprint.
-
-{chr(10).join(sections)}
+```
 """
 
 

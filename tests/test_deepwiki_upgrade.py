@@ -1,6 +1,8 @@
+import json
 import os
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import mock_open, patch
 
@@ -11,6 +13,29 @@ from bot_runtime import batch_limit, smoke_enabled, smoke_limit
 from deepwiki_triage import classify_deepwiki_response, parse_json_response, save_deepwiki_response
 from proof_gate_schema import PROOF_GATE_CONTRACT
 from scanned_report_schema import SCANNED_REPORT_CONTRACT
+
+
+def write_valid_live_context(path: Path, latest_block: int = 25541974) -> None:
+    captured = datetime.now(timezone.utc).replace(microsecond=0)
+    payload = {
+        "schema_version": "acte-live-context-v4",
+        "protocol": {
+            "name": "Mog Coin",
+            "source_repo": "incjanta/mogcoin",
+            "source_commit": "6c30620064e24c3cf417e58ad6c76fff82428194",
+        },
+        "chain": "ethereum",
+        "chain_id": 1,
+        "captured_at": captured.isoformat().replace("+00:00", "Z"),
+        "latest_block": latest_block,
+        "target": {"address": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a", "label": "Mog Coin"},
+        "context_quality": {
+            "status": "enriched",
+            "capture_is_block_pinned": True,
+            "stale_after": (captured + timedelta(hours=168)).isoformat().replace("+00:00", "Z"),
+        },
+    }
+    path.write_text(json.dumps(payload), encoding="utf-8")
 
 
 class BlueprintPromptTests(unittest.TestCase):
@@ -26,7 +51,7 @@ class BlueprintPromptTests(unittest.TestCase):
     def test_audit_prompt_uses_triage_verdicts_not_final_validation(self):
         with tempfile.TemporaryDirectory() as tmp:
             live_context = Path(tmp) / "live_context.json"
-            live_context.write_text('{"target": {"label": "Portal"}, "chain": "bsc"}', encoding="utf-8")
+            write_valid_live_context(live_context)
 
             with patch.dict(os.environ, {"LIVE_CONTEXT_PATH": str(live_context)}, clear=False):
                 prompt = questions.audit_format(
@@ -35,7 +60,7 @@ class BlueprintPromptTests(unittest.TestCase):
 
         self.assertIn("## DeepWiki Automation Boundary", prompt)
         self.assertIn("## Live Context Snapshot", prompt)
-        self.assertIn('"target": {"label": "Portal"}', prompt)
+        self.assertIn('"label": "Mog Coin"', prompt)
         self.assertIn("REJECT", prompt)
         self.assertIn("NEEDS_LOCAL_PROOF", prompt)
         self.assertIn("HIGH_CONFIDENCE_CANDIDATE", prompt)
@@ -45,7 +70,7 @@ class BlueprintPromptTests(unittest.TestCase):
     def test_question_generator_includes_blueprint_and_local_proof_language(self):
         with tempfile.TemporaryDirectory() as tmp:
             live_context = Path(tmp) / "live_context.json"
-            live_context.write_text('{"target": {"label": "Portal"}, "latest_block": 108382650}', encoding="utf-8")
+            write_valid_live_context(live_context, latest_block=108382650)
 
             with patch.dict(os.environ, {"LIVE_CONTEXT_PATH": str(live_context)}, clear=False):
                 prompt = questions.question_generator(
@@ -91,7 +116,7 @@ class BlueprintPromptTests(unittest.TestCase):
     def test_scanner_prompt_requires_json_and_live_context_gate(self):
         with tempfile.TemporaryDirectory() as tmp:
             live_context = Path(tmp) / "live_context.json"
-            live_context.write_text('{"target": {"label": "Portal"}, "chain": "bsc"}', encoding="utf-8")
+            write_valid_live_context(live_context)
 
             with patch.dict(os.environ, {"LIVE_CONTEXT_PATH": str(live_context)}, clear=False):
                 prompt = questions.scan_format("External critical accounting report")
@@ -106,13 +131,13 @@ class BlueprintPromptTests(unittest.TestCase):
     def test_validation_prompt_embeds_live_context(self):
         with tempfile.TemporaryDirectory() as tmp:
             live_context = Path(tmp) / "live_context.json"
-            live_context.write_text('{"target": {"label": "Portal"}, "chain_id": 56}', encoding="utf-8")
+            write_valid_live_context(live_context)
 
             with patch.dict(os.environ, {"LIVE_CONTEXT_PATH": str(live_context)}, clear=False):
                 prompt = questions.validation_format("candidate drains BNB")
 
         self.assertIn("## Live Context Snapshot", prompt)
-        self.assertIn('"chain_id": 56', prompt)
+        self.assertIn('"chain_id": 1', prompt)
 
     def test_scanned_report_contract_only_allows_paid_scope_families(self):
         self.assertTrue(SCANNED_REPORT_CONTRACT["reject_if_not_paid_scope"])
@@ -123,7 +148,7 @@ class BlueprintPromptTests(unittest.TestCase):
     def test_proof_gate_prompt_asks_exact_live_state_question(self):
         with tempfile.TemporaryDirectory() as tmp:
             live_context = Path(tmp) / "live_context.json"
-            live_context.write_text('{"target": {"label": "Portal"}, "chain": "bsc"}', encoding="utf-8")
+            write_valid_live_context(live_context)
 
             with patch.dict(os.environ, {"LIVE_CONTEXT_PATH": str(live_context)}, clear=False):
                 prompt = questions.proof_gate_format("candidate overclaims rewards")
@@ -132,7 +157,45 @@ class BlueprintPromptTests(unittest.TestCase):
         self.assertIn("Does this exact current protocol, with current live state", prompt)
         self.assertIn('"schema_version": "proof-gate-v1"', prompt)
         self.assertIn("Output only valid JSON", prompt)
-        self.assertIn('"target": {"label": "Portal"}', prompt)
+        self.assertIn('"label": "Mog Coin"', prompt)
+
+    def test_default_live_context_path_is_setup_snapshot(self):
+        with patch.dict(os.environ, {}, clear=True):
+            path = questions._default_live_context_path()
+
+        self.assertEqual(path, Path(questions.__file__).resolve().parent / "setup" / "live_context.json")
+
+    def test_stale_other_protocol_context_is_rejected_before_prompt_generation(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            live_context = Path(tmp) / "live_context.json"
+            live_context.write_text(
+                json.dumps(
+                    {
+                        "protocol": {"name": "Portal", "source_repo": "example/portal"},
+                        "chain": "bsc",
+                        "chain_id": 56,
+                        "target": {"address": "0x0000000000000000000000000000000000000001"},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with patch.dict(os.environ, {"LIVE_CONTEXT_PATH": str(live_context)}, clear=False):
+                with self.assertRaisesRegex(questions.LiveContextError, "stale live context rejected"):
+                    questions.question_generator("'File Name: src/MOG.sol -> Scope: fund extraction'")
+
+    def test_expired_context_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            live_context = Path(tmp) / "live_context.json"
+            write_valid_live_context(live_context)
+            payload = json.loads(live_context.read_text(encoding="utf-8"))
+            payload["captured_at"] = "2025-01-01T00:00:00Z"
+            payload["context_quality"]["stale_after"] = "2025-01-08T00:00:00Z"
+            live_context.write_text(json.dumps(payload), encoding="utf-8")
+
+            with patch.dict(os.environ, {"LIVE_CONTEXT_PATH": str(live_context)}, clear=False):
+                with self.assertRaisesRegex(questions.LiveContextError, "snapshot expired"):
+                    questions.audit_format("candidate")
 
     def test_proof_gate_contract_tracks_hard_gates(self):
         hard_gates = PROOF_GATE_CONTRACT["hard_gates"]
