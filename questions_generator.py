@@ -13,6 +13,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
 from webdriver_manager.chrome import ChromeDriverManager
 
 from questions import BASE_URL, question_generator
@@ -184,18 +185,47 @@ class GetQuestions:
         try:
             self.driver.get(url)
 
-            wait = WebDriverWait(self.driver, 20)
-            #  this would click the copy button
+            wait = WebDriverWait(self.driver, 60)
+
+            def save_debug(reason: str) -> Path:
+                debug_dir = Path(os.environ.get("DEEPWIKI_DEBUG_DIR", "deepwiki_debug"))
+                debug_dir.mkdir(parents=True, exist_ok=True)
+                base = debug_dir / f"{uuid.uuid4().hex}_{reason}"
+                try:
+                    (base.with_suffix(".html")).write_text(self.driver.page_source or "", encoding="utf-8")
+                except Exception:
+                    pass
+                try:
+                    self.driver.save_screenshot(str(base.with_suffix(".png")))
+                except Exception:
+                    pass
+                return base
+
+            # Wait for the final answer/copy UI to exist. DeepWiki can be slow to hydrate
+            # after CAPTCHA/indexing, so wait longer than Selenium's implicit timeout.
             copy_button_selector = (By.CSS_SELECTOR, '[aria-label="Copy"]')
-            all_copy_buttons = wait.until(
-                EC.presence_of_all_elements_located(copy_button_selector)
-            )
+            try:
+                all_copy_buttons = wait.until(EC.presence_of_all_elements_located(copy_button_selector))
+            except TimeoutException as exc:
+                base = save_debug("no_copy_button")
+                title = self.driver.title
+                current = self.driver.current_url
+                body_text = self.driver.find_element(By.TAG_NAME, "body").text[:2000] if self.driver.find_elements(By.TAG_NAME, "body") else ""
+                raise RuntimeError(
+                    f"DeepWiki page did not expose a Copy button. title={title!r} current_url={current!r} "
+                    f"debug_base={base} body_start={body_text!r}"
+                ) from exc
+
             last_copy_button = all_copy_buttons[-1]
             wait.until(EC.element_to_be_clickable(last_copy_button)).click()
 
             xpath = "//div[@role='menuitem' and normalize-space(text())='Copy response']"
-            el = wait.until(EC.element_to_be_clickable((By.XPATH, xpath)))
-            el.click()
+            try:
+                el = wait.until(EC.element_to_be_clickable((By.XPATH, xpath)))
+                el.click()
+            except TimeoutException:
+                # Some DeepWiki builds copy directly from the button and do not show a menu.
+                pass
 
             clipboard_content = pyperclip.paste()
 
