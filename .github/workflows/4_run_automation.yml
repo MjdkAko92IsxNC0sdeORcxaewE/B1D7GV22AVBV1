@@ -124,7 +124,7 @@ jobs:
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
           DIRECT_DEEPWIKI_CAPTURE: "1"
           SAVE_REJECTED_DEEPWIKI: "1"
-          DEEPWIKI_RESPONSE_TIMEOUT: "240"
+          DEEPWIKI_RESPONSE_TIMEOUT: "60"
 
         if: steps.check_questions.outputs.run_workflow == 'true'
         run: python run_automation.py

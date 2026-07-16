@@ -51,22 +51,28 @@ try:
     total = len(questions)
     print(f"Found {total} questions in {pending_file}")
 
-    # Process questions
-    max_questions = batch_limit(25)
-    for i, question in enumerate(questions, 1):
+    # Process only a small batch per workflow run. DeepWiki can be slow and
+    # brittle, so one prompt per run is safer and lets workflow_chain resume
+    # from question/*.json without losing unprocessed prompts.
+    max_questions = batch_limit(1)
+    processed_count = 0
+    for i, question in enumerate(questions[:max_questions], 1):
         print(f"[{i}/{total}] Processing: {question[:50]}...")
         bot = Deepwiki(teardown=True)
         bot.ask_question(question)
+        processed_count = i
 
-        if i >= max_questions:
-            print(f"Reached the limit of {max_questions} questions")
-            break
+    remaining = questions[processed_count:]
+    if remaining:
+        dest = Path(question_dir) / pending_file.name
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        with open(dest, 'w', encoding='utf-8') as f:
+            json.dump(remaining, f, indent=2, ensure_ascii=False)
+        print(f"Wrote {len(remaining)} remaining question(s) back to {dest}")
 
-    # If we get here, processing was successful
-    print(f"Successfully processed {i} questions")
-    # Delete the processed file
+    print(f"Successfully processed {processed_count} question(s)")
     pending_file.unlink()
-    print(f"Deleted processed file: {pending_file}")
+    print(f"Deleted processed pending file: {pending_file}")
 
 except Exception as e:
     print(f"Error during processing: {e}")
