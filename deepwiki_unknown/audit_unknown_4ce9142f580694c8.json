@@ -1,0 +1,15 @@
+{
+  "deepwiki_verdict": "unknown",
+  "deepwiki_source_url": "https://deepwiki.com/Rodtat/mogcoin--001",
+  "question": "[File: src/MOG.sol] Review Uniswap V2 pair/router interactions, reserve assumptions, and swap thresholds for Critical fund extraction or protocol value drain by an unprivileged attacker; include concrete proof plan.",
+  "reason": "DeepWiki report UI unavailable or produced no copyable response",
+  "report_generated": false,
+  "source_item": {
+    "question": "[File: src/MOG.sol] Review Uniswap V2 pair/router interactions, reserve assumptions, and swap thresholds for Critical fund extraction or protocol value drain by an unprivileged attacker; include concrete proof plan.",
+    "url": "https://deepwiki.com/Rodtat/mogcoin--001",
+    "timestamp": "2026-07-16 09:21:02.313158",
+    "report_generated": false,
+    "_source_file": "automation_pending/inline_5464278531803903549.json"
+  },
+  "timestamp": "2026-07-16T09:41:23Z"
+}

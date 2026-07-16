@@ -1,0 +1,15 @@
+{
+  "deepwiki_verdict": "unknown",
+  "deepwiki_source_url": "https://deepwiki.com/Rodtat/mogcoin--001",
+  "question": "[File: src/MOG.sol] Compare live_context.json owner, pair, fee, reserve, and balance values with source code assumptions for Critical fund extraction or protocol value drain by an unprivileged attacker.",
+  "reason": "DeepWiki report UI unavailable or produced no copyable response",
+  "report_generated": false,
+  "source_item": {
+    "question": "[File: src/MOG.sol] Compare live_context.json owner, pair, fee, reserve, and balance values with source code assumptions for Critical fund extraction or protocol value drain by an unprivileged attacker.",
+    "url": "https://deepwiki.com/Rodtat/mogcoin--001",
+    "timestamp": "2026-07-16 09:21:26.442026",
+    "report_generated": false,
+    "_source_file": "automation_pending/inline_5464278531803903549.json"
+  },
+  "timestamp": "2026-07-16T09:42:03Z"
+}

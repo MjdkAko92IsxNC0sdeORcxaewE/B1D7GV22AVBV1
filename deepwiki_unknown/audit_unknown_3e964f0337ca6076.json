@@ -1,0 +1,15 @@
+{
+  "deepwiki_verdict": "unknown",
+  "deepwiki_source_url": "https://deepwiki.com/Ginafote/mogcoin--002",
+  "question": "[File: src/MOG.sol] Produce likely REJECT cases for Critical reward extraction or unfair reward access by an unprivileged attacker where only owner/admin or excluded roles can trigger the behavior.",
+  "reason": "DeepWiki report UI unavailable or produced no copyable response",
+  "report_generated": false,
+  "source_item": {
+    "question": "[File: src/MOG.sol] Produce likely REJECT cases for Critical reward extraction or unfair reward access by an unprivileged attacker where only owner/admin or excluded roles can trigger the behavior.",
+    "url": "https://deepwiki.com/Ginafote/mogcoin--002",
+    "timestamp": "2026-07-16 09:24:01.750429",
+    "report_generated": false,
+    "_source_file": "automation_pending/inline_5119743117624412924.json"
+  },
+  "timestamp": "2026-07-16T09:39:41Z"
+}

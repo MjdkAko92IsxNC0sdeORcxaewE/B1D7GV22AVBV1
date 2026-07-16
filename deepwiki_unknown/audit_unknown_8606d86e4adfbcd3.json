@@ -1,0 +1,15 @@
+{
+  "deepwiki_verdict": "unknown",
+  "deepwiki_source_url": "https://deepwiki.com/Ginafote/mogcoin--002",
+  "question": "[File: src/MOG.sol] Review Uniswap V2 pair/router interactions, reserve assumptions, and swap thresholds for Critical reward extraction or unfair reward access by an unprivileged attacker; include concrete proof plan.",
+  "reason": "DeepWiki report UI unavailable or produced no copyable response",
+  "report_generated": false,
+  "source_item": {
+    "question": "[File: src/MOG.sol] Review Uniswap V2 pair/router interactions, reserve assumptions, and swap thresholds for Critical reward extraction or unfair reward access by an unprivileged attacker; include concrete proof plan.",
+    "url": "https://deepwiki.com/Ginafote/mogcoin--002",
+    "timestamp": "2026-07-16 09:23:25.747061",
+    "report_generated": false,
+    "_source_file": "automation_pending/inline_5119743117624412924.json"
+  },
+  "timestamp": "2026-07-16T09:38:40Z"
+}

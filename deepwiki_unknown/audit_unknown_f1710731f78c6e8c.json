@@ -1,0 +1,15 @@
+{
+  "deepwiki_verdict": "unknown",
+  "deepwiki_source_url": "https://deepwiki.com/Rodtat/mogcoin--001",
+  "question": "[File: src/MOG.sol] Produce high-confidence candidates for Critical fund extraction or protocol value drain by an unprivileged attacker only if an unprivileged attacker can execute the full exploit path; include Foundry test outline.",
+  "reason": "DeepWiki report UI unavailable or produced no copyable response",
+  "report_generated": false,
+  "source_item": {
+    "question": "[File: src/MOG.sol] Produce high-confidence candidates for Critical fund extraction or protocol value drain by an unprivileged attacker only if an unprivileged attacker can execute the full exploit path; include Foundry test outline.",
+    "url": "https://deepwiki.com/Rodtat/mogcoin--001",
+    "timestamp": "2026-07-16 09:21:50.712878",
+    "report_generated": false,
+    "_source_file": "automation_pending/inline_5464278531803903549.json"
+  },
+  "timestamp": "2026-07-16T09:42:44Z"
+}
