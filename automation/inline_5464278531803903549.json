@@ -4,5 +4,11 @@
     "url": "https://deepwiki.com/Alex290eku/mogcoin--004",
     "timestamp": "2026-07-16 10:41:21.120220",
     "report_generated": false
+  },
+  {
+    "question": "[File: src/MOG.sol] Analyze transfer, fee, swapBack, and liquidity logic for Critical fund extraction or protocol value drain by an unprivileged attacker; distinguish intended owner-only behavior from attacker-reachable behavior.",
+    "url": "https://deepwiki.com/Ginafote/mogcoin--007",
+    "timestamp": "2026-07-16 10:47:22.632451",
+    "report_generated": false
   }
 ]

@@ -1,0 +1,8 @@
+{
+  "deepwiki_verdict": "unknown",
+  "deepwiki_source_url": "https://deepwiki.com/Ginafote/mogcoin--007",
+  "question": "[File: src/MOG.sol] Analyze transfer, fee, swapBack, and liquidity logic for Critical fund extraction or protocol value drain by an unprivileged attacker; distinguish intended owner-only behavior from attacker-reachable behavior.",
+  "reason": "Immediate DeepWiki capture failed: TimeoutException: Message: \n",
+  "report_generated": false,
+  "timestamp": "2026-07-16 10:48:22.775740"
+}
