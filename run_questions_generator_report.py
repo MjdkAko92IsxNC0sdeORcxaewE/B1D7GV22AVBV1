@@ -15,18 +15,19 @@ from bot_runtime import batch_limit
 
 def get_scope_questions_pending():
     """
-    Get all URLs from JSON files in the automation_pending directory.
+    Get all pending question records from JSON files in scope_questions_pending.
 
     Returns:
-        list: A list of URLs found in all JSON files
+        list: A list of dict records. Records may contain either a URL to fetch
+        from DeepWiki or an inline generated_questions list captured during stage 2.
     """
     scope_questions_pending_dir = os.environ.get("SCOPE_QUESTIONS_PENDING_DIR", "scope_questions_pending")
-    urls = []
+    items = []
 
     # Ensure directory exists
     if not os.path.exists(scope_questions_pending_dir):
         print(f"Directory {scope_questions_pending_dir} does not exist")
-        return urls
+        return items
 
     # Get all JSON files in the directory
     json_files = list(Path(scope_questions_pending_dir).glob("*.json"))
@@ -45,9 +46,9 @@ def get_scope_questions_pending():
                 if isinstance(data, list):
                     for item in data:
                         if isinstance(item, dict) and 'url' in item:
-                            urls.append(item['url'])
-                elif isinstance(data, dict) and 'url' in data:
-                    urls.append(data['url'])
+                            items.append(item)
+                elif isinstance(data, dict) and ('url' in data or 'generated_questions' in data):
+                    items.append(data)
 
         except json.JSONDecodeError as e:
             print(f"Error parsing {json_file}: {e}")
@@ -105,8 +106,8 @@ def move_files_back_to_scope_questions():
 
 def main():
     try:
-        pending_urls = get_scope_questions_pending()
-        total = len(pending_urls)
+        pending_items = get_scope_questions_pending()
+        total = len(pending_items)
 
         if total == 0:
             print("No pending reports to generate")
@@ -119,10 +120,21 @@ def main():
             failures = []
             report = GetQuestions(teardown=True)
             try:
-                for i, url in enumerate(pending_urls):
+                question_dir = Path(os.environ.get("QUESTION_DIR", "question"))
+                question_dir.mkdir(parents=True, exist_ok=True)
+                for i, item in enumerate(pending_items):
+                    url = item.get("url", "<inline>") if isinstance(item, dict) else str(item)
                     print(f"[{i + 1}/{total}] Generating report for: {url}")
                     try:
-                        report.get_questions(url)
+                        inline_questions = item.get("generated_questions") if isinstance(item, dict) else None
+                        if inline_questions:
+                            for start in range(0, len(inline_questions), 25):
+                                chunk = inline_questions[start:start + 25]
+                                out = question_dir / f"inline_{abs(hash(url + str(start)))}.json"
+                                out.write_text(json.dumps(chunk, indent=2, ensure_ascii=False), encoding="utf-8")
+                                print(f"Saved {len(chunk)} inline questions to {out}")
+                        else:
+                            report.get_questions(url)
                     except Exception as exc:
                         failures.append((url, str(exc)))
                         print(f"FAILED {url}: {exc}")

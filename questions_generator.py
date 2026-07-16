@@ -104,11 +104,29 @@ class GenerateQuestions:
 
                 textarea.send_keys(Keys.ENTER)
 
-                time.sleep(10)
+                response_wait = WebDriverWait(self.driver, 180)
+                copy_button_selector = (By.CSS_SELECTOR, '[aria-label="Copy"]')
+                all_copy_buttons = response_wait.until(
+                    EC.presence_of_all_elements_located(copy_button_selector)
+                )
+                last_copy_button = all_copy_buttons[-1]
+                response_wait.until(EC.element_to_be_clickable(last_copy_button)).click()
+                try:
+                    xpath = "//div[@role='menuitem' and normalize-space(text())='Copy response']"
+                    el = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, xpath)))
+                    el.click()
+                except Exception:
+                    pass
+
+                clipboard_content = pyperclip.paste()
+                generated_questions = GetQuestions.get_question_content(self, clipboard_content)
+                if not generated_questions:
+                    raise RuntimeError("DeepWiki answer produced 0 generated audit questions")
+
                 current_url = self.driver.current_url
 
-                # add the current url to collections
-                self.save_to_questions(question_gotten, current_url)
+                # add the current url and inline generated questions to collections
+                self.save_to_questions(question_gotten, current_url, generated_questions=generated_questions)
                 return current_url
             except Exception as a:
                 last_error = a
@@ -119,7 +137,7 @@ class GenerateQuestions:
 
         raise RuntimeError(f"DeepWiki question submission failed after 10 attempts: {last_error}")
 
-    def save_to_questions(self, question_gotten, url):
+    def save_to_questions(self, question_gotten, url, generated_questions=None):
         """Save question and URL to questions.json"""
         collections_file = config("SCOPE_QUESTIONS_PATH")
 
@@ -136,11 +154,14 @@ class GenerateQuestions:
             data = []
 
         # Add new entry
-        data.append({
+        entry = {
             "question": question_gotten,
             "url": url,
             "questions_generated": False
-        })
+        }
+        if generated_questions:
+            entry["generated_questions"] = generated_questions
+        data.append(entry)
 
         # Save with proper formatting
         try:
