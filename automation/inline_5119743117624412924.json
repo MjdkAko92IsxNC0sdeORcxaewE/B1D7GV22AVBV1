@@ -4,5 +4,11 @@
     "url": "https://deepwiki.com/Zachbtc/mogcoin--005",
     "timestamp": "2026-07-16 10:43:24.011226",
     "report_generated": false
+  },
+  {
+    "question": "[File: src/MOG.sol] Analyze transfer, fee, swapBack, and liquidity logic for Critical reward extraction or unfair reward access by an unprivileged attacker; distinguish intended owner-only behavior from attacker-reachable behavior.",
+    "url": "https://deepwiki.com/Rodtat/mogcoin--006",
+    "timestamp": "2026-07-16 10:45:29.635735",
+    "report_generated": false
   }
 ]
