@@ -1,0 +1,8 @@
+{
+  "deepwiki_verdict": "unknown",
+  "deepwiki_source_url": "https://deepwiki.com/Sharlottessan/mogcoin--008",
+  "question": "[File: src/MOG.sol] Produce likely REJECT cases for Critical reward extraction or unfair reward access by an unprivileged attacker where only owner/admin or excluded roles can trigger the behavior.",
+  "reason": "Immediate DeepWiki capture failed: TimeoutException: Message: \n",
+  "report_generated": false,
+  "timestamp": "2026-07-16 11:11:01.689785"
+}

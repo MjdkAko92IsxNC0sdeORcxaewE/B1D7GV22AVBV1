@@ -34,5 +34,11 @@
     "url": "https://deepwiki.com/Ginafote/mogcoin--007",
     "timestamp": "2026-07-16 11:08:06.178171",
     "report_generated": false
+  },
+  {
+    "question": "[File: src/MOG.sol] Produce likely REJECT cases for Critical reward extraction or unfair reward access by an unprivileged attacker where only owner/admin or excluded roles can trigger the behavior.",
+    "url": "https://deepwiki.com/Sharlottessan/mogcoin--008",
+    "timestamp": "2026-07-16 11:10:01.431455",
+    "report_generated": false
   }
 ]
