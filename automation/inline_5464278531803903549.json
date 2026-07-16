@@ -40,5 +40,11 @@
     "url": "https://deepwiki.com/Zachbtc/mogcoin--005",
     "timestamp": "2026-07-16 11:04:03.693563",
     "report_generated": false
+  },
+  {
+    "question": "[File: src/MOG.sol] Produce high-confidence candidates for Critical fund extraction or protocol value drain by an unprivileged attacker only if an unprivileged attacker can execute the full exploit path; include Foundry test outline.",
+    "url": "https://deepwiki.com/Rodtat/mogcoin--006",
+    "timestamp": "2026-07-16 11:06:03.694063",
+    "report_generated": false
   }
 ]
