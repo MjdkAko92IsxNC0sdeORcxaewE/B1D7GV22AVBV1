@@ -40,5 +40,11 @@
     "url": "https://deepwiki.com/Sharlottessan/mogcoin--008",
     "timestamp": "2026-07-16 11:10:01.431455",
     "report_generated": false
+  },
+  {
+    "question": "[File: src/MOG.sol] Produce high-confidence candidates for Critical reward extraction or unfair reward access by an unprivileged attacker only if an unprivileged attacker can execute the full exploit path; include Foundry test outline.",
+    "url": "https://deepwiki.com/Alex290eku/mogcoin--009",
+    "timestamp": "2026-07-16 11:12:11.329292",
+    "report_generated": false
   }
 ]
