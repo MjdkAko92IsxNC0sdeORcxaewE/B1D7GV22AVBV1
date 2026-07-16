@@ -22,5 +22,11 @@
     "url": "https://deepwiki.com/Rodtat/mogcoin--001",
     "timestamp": "2026-07-16 10:55:38.062441",
     "report_generated": false
+  },
+  {
+    "question": "[File: src/MOG.sol] Search for rounding, balance accounting, allowance, burn/dead address, and receiver edge cases that could cause Critical fund extraction or protocol value drain by an unprivileged attacker.",
+    "url": "https://deepwiki.com/Ginafote/mogcoin--002",
+    "timestamp": "2026-07-16 10:57:45.627970",
+    "report_generated": false
   }
 ]
