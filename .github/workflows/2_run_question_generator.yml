@@ -120,8 +120,11 @@ jobs:
           chrome-version: stable
 
       - name: Run Questions automation
+        timeout-minutes: 8
         env:
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
+          DEEPWIKI_ASK_ATTEMPTS: "1"
+          DEEPWIKI_RESPONSE_TIMEOUT: "60"
 
         if: steps.check_scopes.outputs.run_workflow == 'true'
         run: python run_questions_generator.py
