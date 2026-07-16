@@ -1,0 +1,8 @@
+{
+  "deepwiki_verdict": "unknown",
+  "deepwiki_source_url": "https://deepwiki.com/Zachbtc/mogcoin--010",
+  "question": "[File: src/MOG.sol] Review Uniswap V2 pair/router interactions, reserve assumptions, and swap thresholds for Critical reward extraction or unfair reward access by an unprivileged attacker; include concrete proof plan.",
+  "reason": "Immediate DeepWiki capture failed: TimeoutException: Message: \n",
+  "report_generated": false,
+  "timestamp": "2026-07-16 10:54:32.163764"
+}

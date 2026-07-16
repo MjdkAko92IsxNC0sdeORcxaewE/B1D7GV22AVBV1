@@ -16,5 +16,11 @@
     "url": "https://deepwiki.com/Sharlottessan/mogcoin--008",
     "timestamp": "2026-07-16 10:49:34.757097",
     "report_generated": false
+  },
+  {
+    "question": "[File: src/MOG.sol] Review Uniswap V2 pair/router interactions, reserve assumptions, and swap thresholds for Critical reward extraction or unfair reward access by an unprivileged attacker; include concrete proof plan.",
+    "url": "https://deepwiki.com/Zachbtc/mogcoin--010",
+    "timestamp": "2026-07-16 10:53:31.952099",
+    "report_generated": false
   }
 ]
